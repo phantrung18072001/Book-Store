@@ -6,7 +6,7 @@ def home(request):
     return render(request,'store/home.html')
 
 def shelf(request):
-    return render(request,'store/shefl.html')
+    return render(request,'store/bookShelf.html')
 
 def bookPage(request):
     return render(request,'store/bookPage.html')

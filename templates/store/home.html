@@ -4,10 +4,37 @@
     {% block title%} Home {% endblock %}
     {% block extra_css %}
         <link rel="stylesheet" href="{% static 'css/store/home.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/store/navbar.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/store/slide.css' %}" />
     {% endblock %}
 </head>
 
-
 {% block content %}
-    This is home page.
+    {% include 'store/navbar.html' %}
+    <div id="slider">
+        <div class="mySlides fadeup active">
+            <img class="slide-img" src="{% static 'img/slidebook1.jpg' %}" alt="slidebook1">
+            <div class="slide-text">
+                <p> Our Library is Digital </p>
+            </div>
+        </div>
+        <div class="mySlides fadeup">
+            <img class="slide-img" src="{% static 'img/slidebook2.jpg' %}" alt="slidebook2">
+            <div class="slide-text">
+                <p> Our Shop </p>
+            </div>
+        </div>
+        <div class="mySlides fadeup">
+            <img class="slide-img" src="{% static 'img/slidebook3.jpg' %}" alt="slidebook3">
+            <div class="slide-text">
+                <p> Open New World</p>
+            </div>
+        </div>
+        <a class="prev" >&#10094;</a>
+        <a class="next" >&#10095;</a>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src = "{% static 'js/slide.js' %}"></script>
 {% endblock %}

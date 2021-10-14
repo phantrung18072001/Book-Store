@@ -1,13 +1,12 @@
 {% extends "./base.html" %}
+
 {% load static %}
-<head>
-    {% block title%} Home {% endblock %}
-    {% block extra_css %}
-        <link rel="stylesheet" href="{% static 'css/store/home.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/store/navbar.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/store/slide.css' %}" />
-    {% endblock %}
-</head>
+{% block title%} Home {% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/store/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/store/navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/store/slide.css' %}" />
+{% endblock %}
 
 {% block content %}
     {% include 'store/navbar.html' %}
@@ -33,6 +32,8 @@
         <a class="prev" >&#10094;</a>
         <a class="next" >&#10095;</a>
     </div>
+
+    
 {% endblock %}
 
 {% block extra_js %}

@@ -1,0 +1,94 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="{% static 'css/user/register.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/store/home.css' %}" type="text/css"></head>
+
+<body>
+    <div class="register" style="background-image: url('{% static 'img/banner.jpg'%}')">
+        <!-- <input type="hidden" name="success"> -->
+        <!-- <div class="overlay" id="overlay"></div>
+        <div id="popup" class="popup">
+            <div class="container">
+                <div class="content-popup">
+                    <strong>Chúc mừng bạn đã đăng kí thành công. Vui lòng đăng nhập!</strong>
+                </div>
+                <div class="clearfix">
+                    <a href="" role="button" class="submitbtn">OK</a>
+                </div>
+            </div>
+        </div> -->
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn login-btn">Đăng nhập</button>
+                <button type="button" class="toggle-btn register-btn">Đăng ký</button>
+            </div>
+            <form id="register" class="input-group" action="" method="POST">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group-item">
+                            <input type="text" class="input-field" placeholder=" " name="name"
+                                value="" maxlength="50"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <label class="label-field">Họ và Tên</label>
+                        </div>
+                        <div class="alert alert-danger"></div>
+                        <div class="input-group-item">
+                            <input type="phone" class="input-field" placeholder=" " name="username"
+                                value="" maxlength="24"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <label class=" label-field">Tên đăng nhập</label>
+                        </div>
+                        <div class="alert alert-danger"></div>
+                        <div class="input-group-item">
+                            <input type="password" class="input-field" placeholder=" " name="password" maxlength="24"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <label class="label-field">Mật khẩu</label>
+                        </div>
+                        <div class="alert alert-danger"></div>
+                        <div class="input-group-item">
+                            <input type="password" class="input-field" placeholder=" " name="password_confirmation"
+                                maxlength="24"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <label class="label-field">Nhập lại mật khẩu</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group-item">
+                            <input type="number" class="input-field" placeholder=" " name="phone"
+                                value="" maxlength="11" data-type="phone"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <label class=" label-field">Số điện thoại</label>
+                        </div>
+                        <div class="alert alert-danger"></div>
+                        <div class="input-group-item">
+                            <input type="email" class="input-field" placeholder=" " name="email"
+                                value="" maxlength="50" data-type="email"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <label class=" label-field">Email</label>
+                        </div>
+                        <div class="alert alert-danger"></div>
+                        <div class="input-group-item">
+                            <input type="date" class="input-field" placeholder=" " name="birth" min="1900-01-01"
+                                max="2009-12-31" value="">
+                            <label class=" label-field">Ngày sinh</label>
+                        </div>
+                        <div class="alert alert-danger"></div>
+                        <div class="input-group-item">
+                            <input type="text" class="input-field" placeholder=" " name="address"
+                                value="" maxlength="100"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <label class=" label-field">Địa chỉ</label>
+                        </div>
+                        <div class="alert alert-danger"></div>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn mt-20">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

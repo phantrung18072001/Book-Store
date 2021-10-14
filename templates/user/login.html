@@ -1,0 +1,38 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="{% static 'css/user/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/store/home.css' %}" type="text/css">
+</head>
+
+<body>
+    <div class="login" style="background-image: url('{% static 'img/banner.jpg' %}')">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn login-btn">Đăng nhập</button>
+                <button type="button" class="toggle-btn register-btn">Đăng ký</button>
+            </div>
+            <form id="login" class="input-group" method="POST" action="">
+                <div class="input-group-item">
+                    <input type="text" class="input-field" placeholder=" " name="username">
+                    <label class="label-field">Tên đăng nhập</label>
+                </div>
+                <div class="input-group-item">
+                    <input type="password" class="input-field" placeholder=" " name="password">
+                    <label class="label-field">Mật khẩu</label>
+                </div>
+                <div class="alert alert-danger">*Thông tin đăng nhập không chính xác.</div>
+                <div class="input-group-item group-link">
+                    <a href="" class="forget-pass">Quên mật khẩu ?</a>
+                    <a href="" class="back-home">Về trang chủ</a>
+                </div>
+                <button type="submit" class="submit-btn">Đăng nhập</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

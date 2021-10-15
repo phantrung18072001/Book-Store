@@ -3,13 +3,10 @@
 {% load static %}
 {% block title%} Home {% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/store/home.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/store/navbar.css' %}" />
     <link rel="stylesheet" href="{% static 'css/store/slide.css' %}" />
 {% endblock %}
 
 {% block content %}
-    {% include 'store/navbar.html' %}
     <div id="slider">
         <div class="mySlides fadeup active">
             <img class="slide-img" src="{% static 'img/slidebook1.jpg' %}" alt="slidebook1">

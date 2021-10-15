@@ -1,0 +1,152 @@
+{% extends "./base.html" %}
+
+{% load static %}
+{% block title%} Home {% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/store/navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/store/bookPage.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+    <div id="content" class="content section container">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="">Trang chủ</a>
+            <a class="breadcrumb-item">Thể loại 1</a>
+            <a class="breadcrumb-item">Sách 1</a>
+        </div>
+        <div class="single-book row">
+            <div class="single-book-img col-xl-4 col-lg-4">
+                <div class="book-main-img">
+                    <img src="{% static 'img/book1.jpg' %}" alt="Mặt trước">
+                </div>
+                <div class="book-review-img">
+                    <img src="{% static 'img/book1.jpg' %}" alt="Mặt trước" class="list-img active">
+                    <img src="{% static 'img/book2.jpg' %}" alt="Mặt sau" class="list-img">
+                </div>
+            </div>
+            <div class="book-main col-xl-8 col-lg-8">
+                <form action="" method="POST">
+                    <h2 class="book-heading">Mùa hạ mưa rơi</h2>
+                    <h3 class="book-author">Chúa hề</h3>
+                    <div class="book-info">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Nhà xuất bản</td>
+                                    <td>Nhi Đồng</td>
+                                </tr>
+                                <tr>
+                                    <td>Quốc gia</td>
+                                    <td>Việt Nam</td>
+                                </tr>
+                                <tr>
+                                    <td>Thể loại</td>
+                                    <td>Kinh dị</td>
+                                </tr>
+                                <tr>
+                                    <td>Năm phát hành</td>
+                                    <td>2011</td>
+                                </tr>
+                                <tr>
+                                    <td>Số lượng sách còn lại</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>Giá sách</td>
+                                    <td>30.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="book-num">
+                        <button type="button" class="book-btn-sub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="book-icon-num bi bi-dash-lg" viewBox="0 0 16 16">
+                                <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z" />
+                            </svg>
+                        </button>
+                        <!-- <input type="hidden" name="book_id" value="">
+                        <input type="hidden" name="book_quantity" value=""> -->
+                        <input type="text" class="book-num-input" name="quantity" value="1">
+                        <button type="button" class="book-btn-add">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="book-icon-num bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <button type="submit" class="add-cart">Thêm vào giỏ hàng</button>
+                    <button type="button" class="view-cart">Xem giỏ hàng</button>
+                <!-- <div class="alert alert-danger">*Sản phẩm đã hết hàng. Mong bạn quay lại sau.</div>
+                <div class="alert alert-danger">*Bạn chưa đăng nhập nên chưa có tính năng giỏ hàng.</div> -->
+                </form>
+            </div>
+        </div>
+        <div class="book-review">
+            <h3 class="book-review-heading">Nội dung</h3>
+            <div class="book-review-main">
+                <p>Ảo ma canada indonesia</p>
+            </div>
+        </div>
+        <div class="same-category">
+            <h3 class="same-category-heading">Sách cùng thể loại</h3>
+            <div class="same-category-list row">
+                <div class="book-wrapper col-xl-2 col-lg-2">
+                    <div class="book-item">
+                        <a href="" class="book-item-link">
+                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+                            <h4 class="book-name">Sách 2</h4>
+                        </a>
+                        <div class="book-item-author">
+                            <span class="book-author-name">Shiba</span>
+                        </div>
+                        <div class="book-item-action">
+                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
+                            <span class="book-sold">SL: 10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-view-img">
+        <a class="close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-close bi bi-x-lg"
+                viewBox="0 0 16 16">
+                <path
+                    d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
+            </svg>
+        </a>
+        <div class="slider-view-main">
+            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+            <a class="next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="icon-next bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                </svg>
+            </a>
+            <a class="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="icon-prev bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg>
+            </a>
+        </div>
+        <div class="slider-view-sub">
+            <h3 class="slider-view-heading">Hình ảnh của sách</h3>
+            <div class="slider-list-img">
+                <img src="{% static 'img/book1.jpg' %}" alt="" class="list-img-max active">
+                <img src="{% static 'img/book2.jpg' %}" alt="" class="list-img-max">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/bookPage.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %} Shelf {% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static './css/store/shelf.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="wrap container row">
+        <div class="filter col-xl-3">
+            <div class="filter-heading">
+                <h2 class="filter-heading-text">Bộ lọc</h2>
+            </div>
+            <div class="filter-body">
+                <div class="filter-feature">
+                    <h3 class="filter-feature-heading">Danh mục</h3>
+                    <ol class="filter-feature-choices">
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="category" value="" id="category-0">
+                            <label for="category-0">Tất cả</label>
+                        </li>
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="category" value="" id="category-1">
+                            <label for="category-1">Kinh dị</label>
+                        </li>
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="category" value="" id="category-2">
+                            <label for="category-2">Văn học</label>
+                        </li>
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="category" value="" id="category-3">
+                            <label for="category-3">Trinh thám</label>
+                        </li>
+                    </ol>
+                </div>
+                <div class="filter-feature">
+                    <h3 class="filter-feature-heading">Giá tiền</h3>
+                    <ol class="filter-feature-choices">
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="price" value="" id="price-0">
+                            <label for="price-0">Dưới 50.000</label>
+                        </li>
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="price" value="" id="price-1">
+                            <label for="price-1">Từ 50.000 đến 100.000</label>
+                        </li>
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="price" value="" id="price-2">
+                            <label for="price-2">Từ 100.000 đến 300.000</label>
+                        </li>
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="price" value="" id="price-3">
+                            <label for="price-3">Từ 300.000 đến 500.000</label>
+                        </li>
+                        <li class="choice-wrap">
+                            <input type="checkbox" name="price" value="" id="price-4">
+                            <label for="price-4">Trên 500.000</label>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="shelf col-xl-9">
+            <div class="category-list row">
+                <div class="book-wrapper col-xl-3 col-lg-3">
+                    <div class="book-item">
+                        <a href="" class="book-item-link">
+                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+                            <h4 class="book-name">Sách 2</h4>
+                        </a>
+                        <div class="book-item-author">
+                            <span class="book-author-name">Shiba</span>
+                        </div>
+                        <div class="book-item-action">
+                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
+                            <span class="book-sold">SL: 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-wrapper col-xl-3 col-lg-3">
+                    <div class="book-item">
+                        <a href="" class="book-item-link">
+                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+                            <h4 class="book-name">Sách 2</h4>
+                        </a>
+                        <div class="book-item-author">
+                            <span class="book-author-name">Shiba</span>
+                        </div>
+                        <div class="book-item-action">
+                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
+                            <span class="book-sold">SL: 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-wrapper col-xl-3 col-lg-3">
+                    <div class="book-item">
+                        <a href="" class="book-item-link">
+                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+                            <h4 class="book-name">Sách 2</h4>
+                        </a>
+                        <div class="book-item-author">
+                            <span class="book-author-name">Shiba</span>
+                        </div>
+                        <div class="book-item-action">
+                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
+                            <span class="book-sold">SL: 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-wrapper col-xl-3 col-lg-3">
+                    <div class="book-item">
+                        <a href="" class="book-item-link">
+                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+                            <h4 class="book-name">Sách 2</h4>
+                        </a>
+                        <div class="book-item-author">
+                            <span class="book-author-name">Shiba</span>
+                        </div>
+                        <div class="book-item-action">
+                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
+                            <span class="book-sold">SL: 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-wrapper col-xl-3 col-lg-3">
+                    <div class="book-item">
+                        <a href="" class="book-item-link">
+                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+                            <h4 class="book-name">Sách 2</h4>
+                        </a>
+                        <div class="book-item-author">
+                            <span class="book-author-name">Shiba</span>
+                        </div>
+                        <div class="book-item-action">
+                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
+                            <span class="book-sold">SL: 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-wrapper col-xl-3 col-lg-3">
+                    <div class="book-item">
+                        <a href="" class="book-item-link">
+                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
+                            <h4 class="book-name">Sách 2</h4>
+                        </a>
+                        <div class="book-item-author">
+                            <span class="book-author-name">Shiba</span>
+                        </div>
+                        <div class="book-item-action">
+                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
+                            <span class="book-sold">SL: 10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

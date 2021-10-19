@@ -1,0 +1,55 @@
+.order-history {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.empty-order {
+    text-align: center;
+    display: none;
+}
+
+.table thead th {
+    font-size: 15px;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table tbody td {
+    font-size: 15px;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+    border-top: none;
+}
+
+.list-book {
+    list-style: none;
+    margin: 0;
+}
+
+.book {
+    display: flex;
+}
+
+.book .title {
+    flex: 1;
+    margin-right: 8px;
+}
+
+.book .quantity {
+    color: #dd125f;
+    font-weight: bold;
+}
+
+.cancel {
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    color: rgb(13, 81, 172);
+    background-color: transparent;
+}
+
+.cancel:focus {
+    outline: none;
+}

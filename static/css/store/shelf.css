@@ -1,0 +1,141 @@
+.wrap {
+    margin: 30px auto 0;
+}
+
+.filter {
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-heading {
+    padding: 30px 15px 10px;
+    border-bottom: 1px solid #999;
+}
+
+.filter-heading-text {
+    font-size: 24px;
+    color: #C92127;
+}
+
+.filter-feature:last-child {
+    border-bottom: none;
+}
+
+.filter-feature {
+    padding: 10px 15px 10px;
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.filter-feature-heading {
+    font-size: 20px;
+}
+
+.filter-feature-choices {
+    list-style: none;
+}
+
+.choice-wrap {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.choice-wrap label {
+    margin: 0 0 0 6px;
+}
+
+.shelf .category-list {
+    background-color: #fff;
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.shelf .book-wrapper {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .shelf .book-item {
+    background-color: #fff;
+    position: relative;
+    border-radius: 2px;
+    transition: transform ease 0.2s;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .shelf .book-item:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .shelf .book-item-link:hover {
+    text-decoration: none;
+  }
+  
+  .shelf .book-img {
+    height: 193px;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .shelf .book-name {
+    margin: 10px 10px 6px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #dd125f;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 36px;
+  }
+  
+  .shelf .book-item-author {
+    margin: 0 10px;
+  }
+  
+  .shelf .book-author-name {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    line-height: 16px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+  }
+  
+  .shelf .book-item-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 10px 8px 10px;
+    margin-top: auto;
+    flex-shrink: 0;
+  }
+  
+  .shelf .ddc-code {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .shelf .ddc-code span {
+    font-weight: 500;
+  }
+  
+  .shelf .book-sold {
+    padding-top: 3px;
+    font-size: 14px;
+  }

@@ -1,0 +1,62 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block title %} Lịch sử mua hàng {% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static './css/store/infoShip.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="order-history container">
+        <div class="empty-order">
+            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f49e36beaf32db.png"
+                    alt="" class="no-order-img">
+            <p class="no-order-text">Bạn chưa có đơn hàng nào</p>
+        </div>
+        <div class="history">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="row">
+                        <th class="col-xl-1">STT</th>
+                        <th class="col-xl-2">Sách</th>
+                        <th class="col-xl-1">Giá tiền</th>
+                        <th class="col-xl-2">Ngày đặt</th>
+                        <th class="col-xl-2">Ngày nhận</th>
+                        <th class="col-xl-2">Địa chỉ</th>
+                        <th class="col-xl-1">Trạng thái</th>
+                        <th class="col-xl-1"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row">
+                        <td class="col-xl-1">1</td>
+                        <td class="col-xl-2">
+                            <ul class="list-book">
+                                <li class="book">
+                                    <span class="title">Hoa rơi của phật</span>
+                                    <span class="quantity">x2</span>
+                                </li>
+                                <li class="book">
+                                    <span class="title">Hoa rơi của phật 2</span>
+                                    <span class="quantity">x1</span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="col-xl-1">200.000 đ</td>
+                        <td class="col-xl-2">
+                            20/10/2011
+                        </td>
+                        <td class="col-xl-2">
+                            22/10/2011
+                        </td>
+                        <td class="col-xl-2">Yên Thành, Nghệ An</td>
+                        <td class="col-xl-1">Đã giao</td>
+                        <td class="col-xl-1">
+                            <button class='cancel'>Hủy</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

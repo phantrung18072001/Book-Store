@@ -1,5 +1,3 @@
-const { default: Axios } = require("axios");
-
 $(document).ready(function() {
     $('.overlay').click(function() {
         $('.cart-interface').hide(500);
@@ -16,43 +14,12 @@ $(document).ready(function() {
     listItemBig.each(function(index, cur) {
         $(this).find('> * > * >.btn-add').click(function() {
             let bookQuantity = Number(($(this).find("#book_quantity")).val());
-            if (bookQuantity > 5) {
-                bookQuantity = 5;
-            }
-            let id = $(this).next().val();
-            data = {
-                id: id,
-                type: 'add'
-            }
             arrNum[index].value = parseInt(arrNum[index].value) + 1;
             if (arrNum[index].value > bookQuantity) {
                 arrNum[index].value = bookQuantity;
-            } else {
-                axios.post('/user/changecart', data).then(res => {
-                    if (res.data.success) {
-                        $('.cart-interface .cart-info #sum-book').text(res.data.sumBook);
-                        $('.nav-logged-in .nav-cart-notice').text(res.data.countCast);
-                    }
-                }).catch(err => {
-                    alert('Lỗi hệ thống, không thể thực hiện!');
-                });
             }
-
         })
         $(this).find('> * > * >.btn-sub').click(function() {
-            let id = $(this).next().val();
-            data = {
-                id: id,
-                type: 'sub'
-            }
-            axios.post('/user/changecart', data).then(res => {
-                if (res.data.success) {
-                    $('.cart-interface .cart-info #sum-book').text(res.data.sumBook);
-                    $('.nav-logged-in .nav-cart-notice').text(res.data.countCast);
-                }
-            }).catch(err => {
-                alert('Lỗi hệ thống, không thể thực hiện!');
-            });
             arrNum[index].value = parseInt(arrNum[index].value) - 1;
             if (arrNum[index].value == 0) {
                 $(this).parents('.row-cart').remove();
@@ -79,17 +46,6 @@ $(document).ready(function() {
         })
         $(this).find('> * > .btn-remove').click(function() {
             let id = $(this).next().val();
-            data = {
-                id: id
-            }
-            axios.post('/user/deletecart', data).then(res => {
-                if (res.data.success) {
-                    $('.cart-interface .cart-info #sum-book').text(res.data.sumBook);
-                    $('.nav-logged-in .nav-cart-notice').text(res.data.countCast);
-                }
-            }).catch(err => {
-                alert('Lỗi hệ thống, không thể thực hiện!');
-            });
             $(this).parents('.row-cart').remove();
             listItemSmall[index].remove();
             isHollow();
@@ -99,17 +55,6 @@ $(document).ready(function() {
     listItemSmall.each(function(index) {
         $(this).find('> * > * > .nav-cart-item-remove').click(function() {
             let id = $(this).next().val();
-            data = {
-                id: id
-            }
-            axios.post('/user/deletecart', data).then(res => {
-                if (res.data.success) {
-                    $('.cart-interface .cart-info #sum-book').text(res.data.sumBook);
-                    $('.nav-logged-in .nav-cart-notice').text(res.data.countCast);
-                }
-            }).catch(err => {
-                alert('Lỗi hệ thống, không thể thực hiện!');
-            });
             $(this).parents('.nav-cart-item').remove();
             listItemBig[index].remove();
             isHollow();
@@ -152,25 +97,6 @@ $(document).ready(function() {
             $('.cart-interface .input-address input').attr('readonly', 'readonly');
         }
     });
-    let checkDate = function() {
-        let today = new Date();
-        let giveback = new Date($(('.date-giveback')).val());
-        let tomorrow = new Date(today.setDate(today.getDate() + 1));
-        if (tomorrow.getHours() > 6) {
-            tomorrow.setHours(6);
-        }
-        if (giveback == "Invalid Date") {
-            return false;
-        }
-        if (giveback.getTime() < tomorrow.getTime()) {
-            $('.error-date').show();
-            return false;
-        } else {
-            $('.error-date').hide();
-            return true;
-        }
-    }
-    $('.date-giveback').on('change', checkDate);
     $('.cart-submit').click(function() {
         let check = true;
         if ($('.address-receive').val() == '') {
@@ -179,9 +105,6 @@ $(document).ready(function() {
         } else {
             check = true;
             $('.error-address').hide();
-        }
-        if (!checkDate()) {
-            check = false;
         }
         if (check == true) {
             $('.form')[0].submit();

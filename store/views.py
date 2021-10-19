@@ -12,7 +12,7 @@ def register(request):
     return render(request,'user/register.html')
 
 def shelf(request):
-    return render(request,'store/bookShelf.html')
+    return render(request,'store/shelf.html')
 
 def bookPage(request):
     return render(request,'store/bookPage.html')

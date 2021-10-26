@@ -121,6 +121,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 #header .nav-cart {
@@ -373,7 +374,7 @@
   content: "";
   position: absolute;
   top: -27px;
-  right: 33%;
+  right: 43%;
   border-width: 13px 13px;
   border-style: solid;
   border-color: transparent transparent #f5f5f5 transparent;

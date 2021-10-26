@@ -23,10 +23,11 @@
         <div class="form-box">
             <div class="button-box">
                 <div id="btn"></div>
-                <a type="button" class="toggle-btn login-btn" href="{% url 'store:login' %}">Đăng nhập</a>
+                <a type="button" class="toggle-btn login-btn" href="{% url 'accounts:login' %}">Đăng nhập</a>
                 <a type="button" class="toggle-btn register-btn">Đăng ký</a>
             </div>
-            <form id="register" class="input-group" action="" method="POST">
+            <form id="register" class="input-group" action="/register" method="POST">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group-item">
@@ -44,13 +45,13 @@
                         </div>
                         <div class="alert alert-danger"></div>
                         <div class="input-group-item">
-                            <input type="password" class="input-field" placeholder=" " name="password" maxlength="24"
+                            <input type="password" class="input-field" placeholder=" " name="pass1" maxlength="24"
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class="label-field">Mật khẩu</label>
                         </div>
                         <div class="alert alert-danger"></div>
                         <div class="input-group-item">
-                            <input type="password" class="input-field" placeholder=" " name="password_confirmation"
+                            <input type="password" class="input-field" placeholder=" " name="pass2"
                                 maxlength="24"
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class="label-field">Nhập lại mật khẩu</label>

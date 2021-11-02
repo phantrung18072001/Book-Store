@@ -11,15 +11,17 @@ class MyAccountManager(BaseUserManager):
         if not username:
             raise ValueError('User name is required')
 
+        if not phone:
+            raise ValueError('Phone is required')
+
         # Tạo đối tượng user mới
         user = self.model(
-            email=self.normalize_email(email=email),    # Chuyển email về dạng bình thường
+            email=self.normalize_email(email=email),    # Chuyển email về dạng chuan hoa
             username=username,
             name=name,
             phone=phone,
         )
         user.set_password(password)
-        user.is_admin=True
         user.save(using=self._db)
         return user
 
@@ -32,29 +34,29 @@ class MyAccountManager(BaseUserManager):
             phone=phone,
         )
         user.is_admin = True
-        user.is_active = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
 class Account(AbstractBaseUser):
     name = models.CharField(max_length=100)
-    username = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     phone = models.CharField(max_length=50)
-    address = models.CharField(max_length=500,null=True)
-    birth = models.DateTimeField(null=True)
-    image = models.ImageField(null=True)
+    address = models.CharField(max_length=500)
+    birth = models.DateField(null=True)
+    image = models.ImageField(null=True, blank=True)
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'username'    # Trường quyêt định khi login
-    REQUIRED_FIELDS = ['email', 'name', 'phone']    # Các trường yêu cầu khi đk tài khoản (mặc định đã có email), mặc định có password
-    @property
-    def is_staff(self):
-        return self.is_admin
+    REQUIRED_FIELDS = ['email', 'name', 'phone']    # Các trường yêu cầu khi đk tài khoản
 
     objects = MyAccountManager()
 

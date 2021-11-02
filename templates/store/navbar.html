@@ -133,7 +133,7 @@
                             <img src="{% static 'img/avatar-default.png' %}" alt="" class="nav-user-img">
                             <ul class="nav-user-menu">
                                 <li class="nav-user-item">
-                                    <a href="">Thông tin cá nhân</a>
+                                    <a href="{% url 'accounts:profile' %}">Thông tin cá nhân</a>
                                 </li>
                                 <li class="nav-user-item">
                                     <a href="">Đơn mượn</a>
@@ -144,7 +144,7 @@
                             </ul>
                         </div>
                     </div>
-                {% else %}
+                {% else %}    
                     <li><a class="nav_list_link login nav-not-logged-in" href="{% url 'accounts:login' %}">ĐĂNG NHẬP</a></li>
                 {% endif %}
             </ul>

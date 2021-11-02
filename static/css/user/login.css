@@ -173,7 +173,6 @@
   }
   
   .login .alert-danger {
-    display: none;
     padding: 0;
     color: red;
     background-color: white;

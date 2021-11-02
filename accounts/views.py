@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from accounts.forms import AccountUpdateForm, RegistrationForm
 from accounts.models import Account
 from django.contrib import messages
 from django.contrib import auth
@@ -11,10 +12,8 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username,password=password)
-        print(user)
         if user is not None:
             auth.login(request, user)
-            messages.success(request=request, message="Login successful!")
             return redirect('store:home')
         else:
             messages.error(request,"Sai thông tin đăng nhập")
@@ -22,29 +21,34 @@ def login(request):
     return render(request,'user/login.html')
 
 def register(request):
+    context = {}
     if request.method == 'POST':
-        name = request.POST['name']
-        username = request.POST['username']
-        pass1 = request.POST['pass1']
-        pass2 = request.POST['pass2']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        birth = request.POST['birth']
-        address = request.POST['address']
-        if pass1 == pass2:
-            myuser = Account.objects.create_user(name=name,username=username,phone=phone,email=email,password=pass1)
-            if birth is not None:
-                myuser.birth = birth
-            if address is not None:
-                myuser.address = address
-            myuser.save()
-            messages.success(request,"Đăng ký thành công!")
-            return redirect('accounts:login')
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            raw_pass = form.cleaned_data['password1']
+            user = auth.authenticate(username=username, password=raw_pass)
+            auth.login(request, user)
+            return redirect('store:home')
+        else:
+            context['register_form'] = form
     else:
-        return render(request,'user/register.html')
+        form = RegistrationForm()
+        context['register_form'] = form
+    return render(request,'user/register.html',context)
 
 @login_required(login_url="login")
 def logout(request):
     auth.logout(request)
-    messages.success(request=request, message="You are logged out!")
     return redirect('accounts:login')
+
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
+    if request.method == 'POST':
+        form = AccountUpdateForm(request.POST,instance=request.user)
+        print(form)
+        if form.is_valid():
+            form.save()
+    return render(request,'user/profile.html')

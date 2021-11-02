@@ -14,9 +14,6 @@ def shelf(request):
 def bookPage(request):
     return render(request,'store/bookPage.html')
 
-def profile(request):
-    return render(request,'user/profile.html')
-
 def infoShip(request):
     return render(request,'store/infoShip.html')
 

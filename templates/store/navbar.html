@@ -1,7 +1,7 @@
 {% load static %}
 <div id="header" class="header">
     <nav class="nav container">
-        <a href="" class="logo"><img src="{% static 'img/logo_shop.jpg' %}"></a>
+        <a href="{% url 'store:home' %}" class="logo"><img src="{% static 'img/logo_shop.jpg' %}"></a>
         <div class="nav-search">
             <form action="" class="form-search-book" autocomplete="off">
                 <input type="text" name="info" class="search-input" placeholder="Nhập vào để tìm kiếm">

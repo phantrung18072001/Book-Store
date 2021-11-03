@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{% static 'css/user/profile.css' %}">
 {% endblock %}
 
+{% block title %} Trang cá nhân {% endblock %}
+
 {% block content %}
 <!--     <input type="hidden" name="success" value="">
     <div class="overlay" id="overlay"></div>
@@ -28,6 +30,7 @@
                 <div class="col-sm-3">
                     <div class="text-center sub-profile">
                         <div class="form-upload">
+                            <input class="link-img" value="" readonly>
                             <input type="file" name="image" hidden>
                             <img src="{{user.image.url}}" class="avatar img-circle img-thumbnail" alt="avatar">
                             <button type="button" class="btn-pro btn-upload-img btn-upload"

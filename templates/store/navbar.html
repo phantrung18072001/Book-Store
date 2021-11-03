@@ -130,7 +130,7 @@
                 {% if user.is_authenticated %}
                     <div class="nav-logged-in">
                         <div class="nav-user">
-                            <img src="{% static 'img/avatar-default.png' %}" alt="" class="nav-user-img">
+                            <img src="{{user.image.url}}" alt="" class="nav-user-img">
                             <ul class="nav-user-menu">
                                 <li class="nav-user-item">
                                     <a href="{% url 'accounts:profile' %}">Thông tin cá nhân</a>

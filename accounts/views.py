@@ -47,8 +47,10 @@ def profile(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')
     if request.method == 'POST':
-        form = AccountUpdateForm(request.POST,instance=request.user)
-        print(form)
+        form = AccountUpdateForm(request.POST, request.FILES ,instance=request.user)
         if form.is_valid():
             form.save()
+    else: 
+        form = AccountUpdateForm()
+        return render(request,'user/profile.html',{'form':form})
     return render(request,'user/profile.html')

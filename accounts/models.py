@@ -46,7 +46,7 @@ class Account(AbstractBaseUser):
     phone = models.CharField(max_length=50)
     address = models.CharField(max_length=500)
     birth = models.DateField(null=True)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(default="avatar-default.png",null=True, blank=True)
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)

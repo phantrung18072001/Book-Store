@@ -1,11 +1,13 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as lg
+
+from store.models import Book
 # Create your views here.
 
 def home(request):
+    context = {}
+    books = Book.objects.all()
     return render(request,'store/home.html')
 
 def shelf(request):

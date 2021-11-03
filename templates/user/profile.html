@@ -22,23 +22,22 @@
         <div class="profile-heading">
             <h1 class="profile-heading-text">HỒ SƠ CỦA TÔI</h1>
         </div>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="row">
                 <div class="col-sm-3">
                     <div class="text-center sub-profile">
                         <div class="form-upload">
-                            <input class="link-img" name="images" value="" readonly>
-                            <img src="{% static 'img/avatar-default.png' %}" class="avatar img-circle img-thumbnail" alt="avatar">
-                            <input type="file" class="hidden">
-                            <div class="alert alert-upload"></div>
-                            <button type="button" class="btn-pro btn-upload-img btn-upload">Đăng ảnh</button>
+                            <input type="file" name="image" hidden>
+                            <img src="{{user.image.url}}" class="avatar img-circle img-thumbnail" alt="avatar">
+                            <button type="button" class="btn-pro btn-upload-img btn-upload"
+                                style="margin-top:16px">Chọn ảnh</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-9">
                     <div class="tab-content main-profile">
-                        <form class="form" action="" method="post" id="registrationForm" autocomplete="off">
-                            {% csrf_token %}
+                        <!-- <form class="form" action="" method="post" id="registrationForm" autocomplete="off"> -->
                             <div class="edit-profile">
                                 <h3 class="edit-profile-heading section-heading">Chỉnh sửa thông tin</h3>
                                 <div class="form-group">
@@ -103,10 +102,14 @@
                                     Lưu thông tin
                                 </button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
         </form>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/upload.js' %}" ></script>
 {% endblock %}

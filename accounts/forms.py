@@ -15,9 +15,10 @@ class RegistrationForm(UserCreationForm):
         fields = ('username','name','email','phone','address','birth','password1','password2')
 
 class AccountUpdateForm(forms.ModelForm):
+    image = forms.ImageField()
     class Meta:
         model = Account
-        fields = ('name','email','phone','address','birth')
+        fields = ('name','email','phone','address','birth','image')
     
     def clean_email(self):
         if self.is_valid():

@@ -1,5 +1,4 @@
-/* require('./cart')
- */
+
 $(document).ready(function() {
     if ($('input[name="success"]').val()) {
         $("#overlay").css({ "display": "block" });
@@ -12,6 +11,8 @@ $(document).ready(function() {
     $('.view-cart').click(function() {
         $('.cart-interface').show(500);
     })
+
+    let bookQuantity = Number($(".quantity")[0].textContent);
     $('.book-btn-sub').click(function() {
         $('.book-num-input').val(parseInt($('.book-num-input').val()) - 1);
         if ($('.book-num-input').val() <= 1) {
@@ -41,55 +42,23 @@ $(document).ready(function() {
     })
 
     let listImg = $('.list-img');
-    let listImgMax = $('.list-img-max');
     let mainImg = $('.book-main-img img');
-    let sliderMainImg = $('.slider-view-main img');
 
     function load(cur) {
         listImg.removeClass('active');
-        listImgMax.removeClass('active');
         cur.addClass('active');
         mainImg.attr('src', cur.attr('src'));
-        sliderMainImg.attr('src', cur.attr('src'));
     }
+
+    load($(listImg[0]));
+
     listImg.each(function(index) {
         $(this).click(function() {
             load($(this));
-            listImgMax[index].classList.add('active');
-        })
-    })
-    listImgMax.each(function(index) {
-        $(this).click(function() {
-            load($(this));
-            listImg[index].classList.add('active');
+            console.log($(this))
         })
     })
 
-    $('.next').click(function() {
-        let curIndex = listImgMax.index($('.list-img-max.active'));
-        listImgMax.removeClass('active');
-        curIndex += 1;
-        if (curIndex >= listImgMax.length) {
-            curIndex = 0;
-        }
-        load($(listImgMax[curIndex]));
-        listImg[curIndex].classList.add('active');
-    })
-    $('.prev').click(function() {
-        let curIndex = listImgMax.index($('.list-img-max.active'));
-        listImgMax.removeClass('active');
-        curIndex -= 1;
-        if (curIndex < 0) {
-            curIndex = listImgMax.length - 1;
-        }
-        load($(listImgMax[curIndex]));
-        listImg[curIndex].classList.add('active');
-    })
-
-    mainImg.click(function() {
-        $('.slider-view-img').fadeIn(500);
-        console.log(1);
-    })
     $('.close').click(function() {
         $('.slider-view-img').fadeOut(500);
     })

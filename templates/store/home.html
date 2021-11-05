@@ -137,106 +137,44 @@
                 </a>
             </div>
         </div>
+        {% for category, books in context.items %}         
         <div class="section">
             <div class="content-heading">
-                <h3>Sách kinh dị</h3>
+                <h3>Sách {{category}}</h3>
             </div>
             <div class="category-list row">
+                {% for book in books %}
                 <div class="book-wrapper col-xl-2 col-lg-2">
                     <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
+                        <a href="{% url 'store:bookPage' book.id %}" class="book-item-link">
+                            <!-- Lâu, chưa tối ưu khi có nhiều ảnh
+                                làm sao để get một ảnh main duy nhất -->
+                            {% for image in book.images.all %}
+                                {% if image.main_image is True %}
+                                    <img src="{{image.path.url}}" class="book-img">
+                                {% endif %}
+                            {% endfor %}
+                            <h4 class="book-name">{{book.title}}</h4>
                         </a>
                         <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
+                            <span class="book-author-name">{{book.auth}}</span>
+                        </div>
+                        <div class="book-item-category">
+                            <p class="ddc-code">Thể loại: <span>{{category}}</span></p>
                         </div>
                         <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
+                            <span class="price">Giá: {{book.price}}đ</span>
+                            <span class="book-sold">SL:{{book.inventories.all.0.quantity}}</span>
                         </div>
                     </div>
                 </div>
-                <div class="book-wrapper col-xl-2 col-lg-2">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-2 col-lg-2">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-2 col-lg-2">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-2 col-lg-2">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-2 col-lg-2">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <a href="" class="read-more">
-                    <button class="read-more-btn">Xem thêm</button>
-                </a>
+                {% endfor %}
+            </div>
+            <div href="" class="read-more">
+                <button class="read-more-btn">Xem thêm</button>
             </div>
         </div>
+        {% endfor %}
     </div>
     
 {% endblock %}

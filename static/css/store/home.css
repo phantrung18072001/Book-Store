@@ -1,5 +1,6 @@
 .section {
-    padding-top: 30px;
+    margin-top: 30px;
+    background: #fff;
 }
 
 .content-heading {
@@ -49,7 +50,6 @@
 }
 
 .content .category-list {
-    background-color: #fff;
     margin: 0px;
 }
 
@@ -85,6 +85,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    width: 100%;
   }
   
   .content .book-name {
@@ -135,8 +136,12 @@
   
   .content .ddc-code span {
     font-weight: 500;
+    margin: 0;
   }
-  
+  .content .price {
+    padding-top: 3px;
+    font-size: 14px;
+  }
   .content .book-sold {
     padding-top: 3px;
     font-size: 14px;
@@ -145,6 +150,7 @@
 .read-more {
     display:block;
     margin: 0 auto;
+    text-align: center;
 }
 
 .read-more-btn {

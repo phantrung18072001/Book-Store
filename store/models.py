@@ -1,6 +1,7 @@
 from django.db import models
 from django_countries.fields import CountryField
 from django.shortcuts import reverse
+from accounts.models import Account
 # Create your models here.
 
 CATEGORY_CHOICES = (
@@ -37,7 +38,20 @@ class Book_Image(models.Model):
     path = models.ImageField(default="book1.jpg")
 
 class Book_Inventory(models.Model):
-    book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name="inventories")
+    book = models.OneToOneField(Book,on_delete=models.CASCADE,related_name="inventories")
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class Cart(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE) 
+    created_at = models.DateTimeField(auto_now_add=True) 
+    def __str__(self): 
+        return self.cart_id 
+
+class CartItem(models.Model): 
+    book = models.ForeignKey(Book, on_delete=models.CASCADE) 
+    cart_session = models.ForeignKey(Cart, on_delete=models.CASCADE) 
+    quantity = models.IntegerField() 
+    def __str__(self): 
+        return self.product

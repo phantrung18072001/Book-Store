@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Book_Image, Book_Inventory
+from .models import Book, Book_Image, Book_Inventory, Cart, CartItem
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -28,6 +28,15 @@ class BookInventoryAdmin(admin.ModelAdmin):
     list_filter = ()
     fieldsets = ()
 
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('user', 'created_at',)
+
+
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ('book', 'cart_session', 'quantity',)
+
+admin.site.register(Cart, CartAdmin)
+admin.site.register(CartItem, CartItemAdmin)
 admin.site.register(Book,BookAdmin)
 admin.site.register(Book_Image,BookImageAdmin)
 admin.site.register(Book_Inventory,BookInventoryAdmin)

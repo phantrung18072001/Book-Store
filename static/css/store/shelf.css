@@ -44,8 +44,15 @@
     margin: 0 0 0 6px;
 }
 
+.shelf {
+  background-color: #fff;
+}
+
+.shelf_heading {
+  padding: 20px 10px 0px 10px;
+}
+
 .shelf .category-list {
-    background-color: #fff;
     margin: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -83,6 +90,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    width: 100%;
   }
   
   .shelf .book-name {
@@ -138,4 +146,8 @@
   .shelf .book-sold {
     padding-top: 3px;
     font-size: 14px;
+  }
+
+  .pagination {
+    justify-content: center;
   }

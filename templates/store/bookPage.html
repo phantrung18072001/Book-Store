@@ -27,7 +27,8 @@
                 </div>
             </div>
             <div class="book-main col-xl-8 col-lg-8">
-                <form action="" method="POST">
+                <form action="{% url 'add_cart' book.id %}" method="POST">
+                    {% csrf_token %}
                     <h2 class="book-heading">{{book.title}}</h2>
                     <h3 class="book-author">{{book.auth}}</h3>
                     <div class="book-info">
@@ -51,7 +52,7 @@
                                 </tr>
                                 <tr>
                                     <td>Số lượng sách còn lại</td>
-                                    <td class="quantity">{{book.inventories.all.0.quantity}}</td>
+                                    <td class="quantity">{{book.inventories.quantity}}</td>
                                 </tr>
                                 <tr>
                                     <td>Giá sách</td>
@@ -76,16 +77,18 @@
                             </svg>
                         </button>
                     </div>
-                    {% if user.is_authenticated %}
-                        {% if book.inventories.all.0.quantity <= 0 %}
-                        <div class="alert alert-danger">*Sản phẩm đã hết hàng. Mong bạn quay lại sau.</div>
+                    <div>
+                        {% if user.is_authenticated %}
+                            {% if book.inventories.quantity <= 0 %}
+                            <div class="alert alert-danger">*Sản phẩm đã hết hàng. Mong bạn quay lại sau.</div>
+                            {% else %}
+                            <button type="submit" class="add-cart">Thêm vào giỏ hàng</button>
+                            <button type="button" class="view-cart">Xem giỏ hàng</button>
+                            {% endif %}
                         {% else %}
-                        <button type="submit" class="add-cart">Thêm vào giỏ hàng</button>
-                        <button type="button" class="view-cart">Xem giỏ hàng</button>
+                            <div class="alert alert-danger">*Bạn chưa đăng nhập nên chưa có tính năng giỏ hàng.</div>
                         {% endif %}
-                    {% else %}
-                        <div class="alert alert-danger">*Bạn chưa đăng nhập nên chưa có tính năng giỏ hàng.</div>
-                    {% endif %}
+                    </div>
                 </form>
             </div>
         </div>

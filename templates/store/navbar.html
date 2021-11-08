@@ -108,6 +108,11 @@
                         <div class="nav-user">
                             <img src="{{user.image.url}}" alt="" class="nav-user-img">
                             <ul class="nav-user-menu">
+                                {% if user.is_admin %}
+                                <li class="nav-user-item">
+                                    <a href="{% url 'store:dashboard' %}">Trang quản trị</a>
+                                </li>
+                                {% endif %}
                                 <li class="nav-user-item">
                                     <a href="{% url 'accounts:profile' %}">Thông tin cá nhân</a>
                                 </li>

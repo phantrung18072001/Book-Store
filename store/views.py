@@ -40,11 +40,7 @@ def shelf(request):
 def bookPage(request,pk):
     book = Book.objects.get(id=pk)
     return render(request,'store/bookPage.html',{'book':book})
-
-def add_cart(request,book_id):
-    book = Book.objects.get(id=book_id)
-     
-
+    
 
 def infoShip(request):
     return render(request,'store/infoShip.html')

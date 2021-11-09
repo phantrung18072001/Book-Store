@@ -44,14 +44,14 @@ class Book_Inventory(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Cart(models.Model):
-    user = models.OneToOneField(Account, on_delete=models.CASCADE) 
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True) 
     def __str__(self): 
-        return self.cart_id 
+        return str(self.user) 
 
 class CartItem(models.Model): 
     book = models.ForeignKey(Book, on_delete=models.CASCADE) 
     cart_session = models.ForeignKey(Cart, on_delete=models.CASCADE) 
     quantity = models.IntegerField() 
     def __str__(self): 
-        return self.product
+        return str(self.book)

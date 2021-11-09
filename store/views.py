@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage
 
-from store.models import CATEGORY_CHOICES, Book
+from store.models import CATEGORY_CHOICES, Book, Cart, CartItem
 # Create your views here.
 
 def home(request):
@@ -40,7 +40,37 @@ def shelf(request):
 def bookPage(request,pk):
     book = Book.objects.get(id=pk)
     return render(request,'store/bookPage.html',{'book':book})
-    
+
+def add_cart(request,book_id):
+    book = Book.objects.get(id=book_id)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            book_quantity = int(request.POST.get('quantity'))
+        try:
+            cart = Cart.objects.get(user=request.user)
+        except Cart.DoesNotExist:
+            cart = Cart.objects.create(user=request.user)
+
+        is_exist_cart_item = CartItem.objects.filter(cart_session=cart,book=book).exists()
+        if is_exist_cart_item:
+            pass
+        else:
+            cart_item = CartItem.objects.create(cart_session=cart, book=book, quantity=book_quantity)
+            cart_item.save()
+    return redirect(request.META['HTTP_REFERER'])
+
+def update_cart(request,cartitem_id):
+    cart_item = CartItem.objects.get(id=cartitem_id)
+    cart_item_quantity = request.GET.get('cart_item_quantity')
+    cart_item.quantity = cart_item_quantity
+    cart_item.save()
+    return redirect(request.META['HTTP_REFERER'])
+
+def remove_cart(request,cartitem_id):
+    cart_item = CartItem.objects.get(id=cartitem_id)
+    cart_item.delete()
+    return redirect(request.META['HTTP_REFERER'])
+
 
 def infoShip(request):
     return render(request,'store/infoShip.html')

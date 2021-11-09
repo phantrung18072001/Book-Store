@@ -72,34 +72,42 @@
                                     d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
                             </svg>
                         </div>
-                        <span class="nav-cart-notice">3</span>
+                        {% if count > 0 %}
+                        <span class="nav-cart-notice">{{count}}</span>
+                        {% endif %}
                         <div class="nav-cart-list">
+                            {% if count <= 0 %}
                             <div class="nav-no-cart">
                                 <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f49e36beaf32db.png"
                                     alt="" class="nav-cart--no-cart-img">
                                 <p class="nav-cart--no-cart-text">Chưa Có Sản Phẩm</p>
                             </div>
+                            {% else %}
                             <div>
                                 <h3 class="nav-cart-heading">Sản phẩm đã thêm</h3>
                                 <ul class="nav-cart-list-item">
+                                    {% for cart_item in cart_items %}
                                     <li class="nav-cart-item">
-                                        <img src="" alt=""
-                                            class="nav_cart-item-img">
+                                        {% for image in cart_item.book.images.all %}
+                                            {% if image.main_image is True %}
+                                            <img src="{{image.path.url}}" alt="Mặt trước" class="nav_cart-item-img">
+                                            {% endif %}
+                                        {% endfor %}
                                         <div class="nav-cart-item-info">
                                             <div class="nav-cart-item-heading">
-                                                <h5 class="nav-cart-item-name">
-                                                </h5>
+                                                <h5 class="nav-cart-item-name">{{cart_item.book.title}}</h5>
                                             </div>
                                             <div class="nav-cart-item-body">
-                                                <span class="nav-cart-item-desc"></span>
-                                                <span class="nav-cart-item-remove">Xóa</span>
-                                                <input type="hidden" name='cart'>
+                                                <span class="nav-cart-item-desc">{{cart_item.book.auth}}</span>
+                                                <a href="{% url 'store:remove_cart' cart_item.id %}" class="nav-cart-item-remove">Xóa</a>
                                             </div>
                                         </div>
                                     </li>
+                                    {% endfor %}
                                 </ul>
                                 <button class="btn-primary nav-cart-view btn-effect">Xem giỏ hàng</button>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </li>

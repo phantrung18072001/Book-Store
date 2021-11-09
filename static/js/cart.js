@@ -11,9 +11,10 @@ $(document).ready(function() {
     let arrNum = $('.cart-num')
     let listItemBig = $('.row-cart');
     let listItemSmall = $('.nav-cart-item');
+    let bookQuantity = Number($(this).find("#book_quantity").val());
     listItemBig.each(function(index, cur) {
         $(this).find('> * > * >.btn-add').click(function() {
-            let bookQuantity = Number(($(this).find("#book_quantity")).val());
+            console.log(bookQuantity)
             arrNum[index].value = parseInt(arrNum[index].value) + 1;
             if (arrNum[index].value > bookQuantity) {
                 arrNum[index].value = bookQuantity;
@@ -21,10 +22,8 @@ $(document).ready(function() {
         })
         $(this).find('> * > * >.btn-sub').click(function() {
             arrNum[index].value = parseInt(arrNum[index].value) - 1;
-            if (arrNum[index].value == 0) {
-                $(this).parents('.row-cart').remove();
-                listItemSmall[index].remove();
-                isHollow();
+            if (arrNum[index].value <= 1) {
+                arrNum[index].value = 1;
             }
         })
         $(this).find('> * > * > .cart-num').keyup(function() {
@@ -44,12 +43,12 @@ $(document).ready(function() {
                 arrNum[index].value = 1;
             }
         })
-        $(this).find('> * > .btn-remove').click(function() {
+        /* $(this).find('> * > .btn-remove').click(function() {
             let id = $(this).next().val();
             $(this).parents('.row-cart').remove();
             listItemSmall[index].remove();
             isHollow();
-        })
+        }) */
     })
 
     listItemSmall.each(function(index) {

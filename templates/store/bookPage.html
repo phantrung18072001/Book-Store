@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="book-main col-xl-8 col-lg-8">
-                <form action="" method="POST">
+                <form action="{% url 'store:add_cart' book.id %}" method="POST">
                     {% csrf_token %}
                     <h2 class="book-heading">{{book.title}}</h2>
                     <h3 class="book-author">{{book.auth}}</h3>

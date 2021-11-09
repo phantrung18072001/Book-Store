@@ -168,10 +168,6 @@
           animation: growUp linear 0.3s;
 }
 
-#header .nav-no-cart {
-  display: none;
-}
-
 #header .nav-cart--no-cart-text {
   text-align: center;
   margin: 20px;
@@ -672,10 +668,6 @@
   }
 }
 
-
-.nav-no-cart {
-  display: none;
-}
 
 .nav-categories-heading {
   cursor: default;

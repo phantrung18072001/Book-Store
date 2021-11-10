@@ -10,6 +10,6 @@ urlpatterns = [
     path('infoShip',views.infoShip,name='infoShip'),
     path('dashboard',views.dashboard,name='dashboard'),
     path('add_cart/<int:book_id>/', views.add_cart, name='add_cart'),
-    path('update_cart/<int:cartitem_id>/', views.update_cart, name='update_cart'),  
-    path('remove_cart/<int:cartitem_id>/', views.remove_cart, name='remove_cart'), 
+    path('update_cart', views.update_cart, name='update_cart'),  
+    path('remove_cart', views.remove_cart, name='remove_cart'), 
 ]

@@ -4,6 +4,7 @@ def add_variable_to_context(request):
     categories = CATEGORY_CHOICES
     total = 0
     count = 0
+    cart_items = None
     if request.user.is_authenticated:
         try:
             cart = Cart.objects.get(user=request.user)

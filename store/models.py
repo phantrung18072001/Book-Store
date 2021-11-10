@@ -45,6 +45,7 @@ class Book_Inventory(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    total = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True) 
     def __str__(self): 
         return str(self.user) 

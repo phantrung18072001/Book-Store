@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib import messages
@@ -56,20 +57,44 @@ def add_cart(request,book_id):
             pass
         else:
             cart_item = CartItem.objects.create(cart_session=cart, book=book, quantity=book_quantity)
+            cart.total += book_quantity * book.price;
             cart_item.save()
-    return redirect(request.META['HTTP_REFERER'])
+            cart.save()
+        return redirect(request.META['HTTP_REFERER'])
 
-def update_cart(request,cartitem_id):
-    cart_item = CartItem.objects.get(id=cartitem_id)
-    cart_item_quantity = request.GET.get('cart_item_quantity')
-    cart_item.quantity = cart_item_quantity
-    cart_item.save()
-    return redirect(request.META['HTTP_REFERER'])
+def update_cart(request):
+    if request.method == 'POST':    
+        if request.user.is_authenticated:
+            cartitem_id = int(request.POST.get('cartitem_id'))
+            cart_item_quantity = int(request.POST.get('quantity'))
+            cart_item = CartItem.objects.get(id=cartitem_id)
 
-def remove_cart(request,cartitem_id):
-    cart_item = CartItem.objects.get(id=cartitem_id)
-    cart_item.delete()
-    return redirect(request.META['HTTP_REFERER'])
+            old_quantity = cart_item.quantity
+            cart_item.quantity = cart_item_quantity
+            cart_item.save()
+            cart = Cart.objects.get(id=cart_item.cart_session.id)
+            cart.total = cart.total + (cart_item.quantity-old_quantity) * cart_item.book.price
+            cart.save()
+            return JsonResponse({'status':'Update successfully','total_cart':cart.total})
+        else:
+            return JsonResponse({'status':'Back to login'})
+    return redirect("/")
+
+def remove_cart(request):
+    if request.method == 'POST':    
+        if request.user.is_authenticated:
+            cartitem_id = int(request.POST.get('cartitem_id'))
+            count = int(request.POST.get('count'))
+            count -= 1
+            cart_item = CartItem.objects.get(id=cartitem_id)
+            cart = Cart.objects.get(id=cart_item.cart_session.id)
+            cart.total = cart.total - cart_item.quantity * cart_item.book.price
+            cart_item.delete()
+            cart.save()
+            return JsonResponse({'status':'Update successfully','total_cart':cart.total, 'count':count})
+        else:
+            return JsonResponse({'status':'Back to login'})
+    return redirect("/")
 
 
 def infoShip(request):

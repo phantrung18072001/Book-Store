@@ -137,6 +137,10 @@
   cursor: pointer;
 }
 
+#header .nav-no-cart{
+  display:none;
+}
+
 #header .nav-cart-notice,
 #header .nav-nofi-notice {
   background-color: #dd125f;
@@ -152,6 +156,10 @@
 
 #header .nav-nofi-notice {
   top: -6px;
+}
+
+#header .nav-cart-notice {
+  display:none;
 }
 
 #header .nav-cart-list {
@@ -256,7 +264,10 @@
 }
 
 #header .nav-cart-item-remove {
-  font-size: 14px;
+  outline: none;
+    font-size: 14px;
+    border: none;
+    background: transparent;
 }
 
 #header .nav-cart-item-remove:hover {

@@ -95,6 +95,7 @@ $(document).ready(function() {
         $(this).find('> * > .btn-remove').click(function() {
             let cartitem_id = $(this).closest('.row-cart').find(".cart-item-id").val();
             let token = $('input[name="csrfmiddlewaretoken"]').val();
+            let count = $('.nav-cart-notice').text();
             cf = confirm('Are you sure?')
             if (cf){
                 $.ajax({
@@ -102,6 +103,7 @@ $(document).ready(function() {
                     url : "/remove_cart",
                     data : {
                         'cartitem_id': cartitem_id,
+                        'count': count,
                         'csrfmiddlewaretoken': token,
                     },
                     dataType : 'json',

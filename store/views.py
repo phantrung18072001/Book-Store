@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage
 
-from store.models import CATEGORY_CHOICES, Book, Cart, CartItem
+from store.models import CATEGORY_CHOICES, Book, Cart, CartItem, Order, OrderItem
 # Create your views here.
 
 def home(request):
@@ -47,19 +47,19 @@ def add_cart(request,book_id):
     if request.user.is_authenticated:
         if request.method == 'POST':
             book_quantity = int(request.POST.get('quantity'))
-        try:
-            cart = Cart.objects.get(user=request.user)
-        except Cart.DoesNotExist:
-            cart = Cart.objects.create(user=request.user)
+            try:
+                cart = Cart.objects.get(user=request.user)
+            except Cart.DoesNotExist:
+                cart = Cart.objects.create(user=request.user)
 
-        is_exist_cart_item = CartItem.objects.filter(cart_session=cart,book=book).exists()
-        if is_exist_cart_item:
-            pass
-        else:
-            cart_item = CartItem.objects.create(cart_session=cart, book=book, quantity=book_quantity)
-            cart.total += book_quantity * book.price;
-            cart_item.save()
-            cart.save()
+            is_exist_cart_item = CartItem.objects.filter(cart_session=cart,book=book).exists()
+            if is_exist_cart_item:
+                pass
+            else:
+                cart_item = CartItem.objects.create(cart_session=cart, book=book, quantity=book_quantity)
+                cart.total += book_quantity * book.price;
+                cart_item.save()
+                cart.save()
         return redirect(request.META['HTTP_REFERER'])
 
 def update_cart(request):
@@ -96,9 +96,38 @@ def remove_cart(request):
             return JsonResponse({'status':'Back to login'})
     return redirect("/")
 
+def order(request):
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    cart_items = CartItem.objects.filter(cart_session=cart)
+    if request.method == 'POST':
+        address = request.POST.get('address')
+
+        for cart_item in cart_items:
+            if cart_item.book.inventories.quantity < cart_item.quantity:
+                messages.error(request,'Vượt quá số lượng sách %s còn lại trong kho'%cart_item.book)
+                return redirect(request.META['HTTP_REFERER'])
+
+        order = Order.objects.create(user=user, address=address, total=cart.total)
+        for cart_item in cart_items:
+            cart_item.book.inventories.quantity -= cart_item.quantity
+            cart_item.book.inventories.save()
+            orderitem = OrderItem.objects.create(order=order,book=cart_item.book,
+                                    quantity=cart_item.quantity,price=cart_item.book.price)
+            cart_item.delete()
+        cart.delete()
+    return redirect("store:infoShip")
+
+def update_order(request,order_id):
+    order = Order.objects.get(id=order_id)
+    order.status = "Cancel"
+    order.save()
+    return redirect("store:infoShip")
 
 def infoShip(request):
-    return render(request,'store/infoShip.html')
+    user = request.user
+    orders = Order.objects.filter(user=user).order_by('-created_at')
+    return render(request,'store/infoShip.html',{'orders':orders})
 
 def dashboard(request):
     return render(request,'admin/dashboard.html')

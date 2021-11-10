@@ -11,5 +11,7 @@ urlpatterns = [
     path('dashboard',views.dashboard,name='dashboard'),
     path('add_cart/<int:book_id>/', views.add_cart, name='add_cart'),
     path('update_cart', views.update_cart, name='update_cart'),  
-    path('remove_cart', views.remove_cart, name='remove_cart'), 
+    path('remove_cart', views.remove_cart, name='remove_cart'),
+    path('order',views.order, name='order'),
+    path('update_order/<int:order_id>',views.update_order, name='update_order')
 ]

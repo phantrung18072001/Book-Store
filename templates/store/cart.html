@@ -68,8 +68,11 @@
             </table>
             <h4 class="cart-sum">Giá trị đơn hàng: <span id="total">{{total}}</span> đồng</h4>
         </div>
-        <form class="form" action="" method="POST" onsubmit="return false;">
+        <form class="form" action="/order" method="POST" onsubmit="return false;">
             {% csrf_token %}
+            {% for message in messages %}
+                <div class="alert alert-danger" id="error_cart">*{{message}}</div>
+            {% endfor %}
             <div class="form-submit">
                 <div class="cart-address">
                     <div class="input-address">

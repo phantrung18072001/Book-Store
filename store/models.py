@@ -27,6 +27,8 @@ class Book(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
+    class Meta:
+        db_table:"bookshop"
 
     def __str__(self):
         return self.title
@@ -47,6 +49,9 @@ class Book_Inventory(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table:"bookshop"
 
 class Cart(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)

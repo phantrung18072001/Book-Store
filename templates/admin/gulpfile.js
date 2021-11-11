@@ -113,7 +113,7 @@ gulp.task('replacePath', function(){
     var replacePath1 = gulp.src(['./pages/*/*.html'], { base: "./" })
         .pipe(replace('="images/', '="../../images/'))
         .pipe(replace('href="pages/', 'href="../../pages/'))
-        .pipe(replace('href="dashboard.html"', 'href="../../dashboard.html"'))
+        .pipe(replace('href="dashboard.html"', 'href="{% url 'adminPage:dashboard' %}"'))
         .pipe(gulp.dest('.'));
     var replacePath2 = gulp.src(['./pages/*.html'], { base: "./" })
         .pipe(replace('="images/', '="../images/'))

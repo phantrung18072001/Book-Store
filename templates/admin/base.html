@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/feather/feather.css' %}" />
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/ti-icons/css/themify-icons.css' %}"  />
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/css/vendor.bundle.base.css' %}" />
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/mdi/css/materialdesignicons.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/admin/style.css' %}" />
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <div class="container-scroller">
+    {% include 'admin/_navbar.html' %}
+    {% block content %}{% endblock %}
+    {% include 'admin/_footer.html' %}
+  </div>
+  <script src="{% static 'js/admin/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'js/admin/off-canvas.js' %}"></script>
+  <script src="{% static 'js/admin/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'js/admin/template.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
+

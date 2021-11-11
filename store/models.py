@@ -27,6 +27,7 @@ class Book(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table:"bookshop"
 
@@ -43,6 +44,9 @@ class Book_Image(models.Model):
     book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name='images')
     main_image = models.BooleanField(default=False)
     path = models.ImageField(default="book1.jpg")
+
+    class Meta:
+        db_table:"bookshop"
 
 class Book_Inventory(models.Model):
     book = models.OneToOneField(Book,on_delete=models.CASCADE,related_name="inventories")

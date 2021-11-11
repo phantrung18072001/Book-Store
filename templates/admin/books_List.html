@@ -1,0 +1,118 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title%} Danh sách các Sách {% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'js/admin/select.dataTables.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial -->
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
+              <i class="icon-book menu-icon"></i>
+              <span class="menu-title">Sách</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="books">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="{% url 'adminPage:books_List' %}"><i class="mdi mdi-information-outline"></i>Thông tin</a></li>
+              </ul>
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="{% url 'adminPage:book_Add' %}"><i class="mdi mdi-plus-circle"></i>Thêm</a></li>
+              </ul>
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="{% url 'adminPage:books_Update' %}"><i class="mdi mdi-sync"></i>Cập nhật</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:users_List' %}">
+              <i class="ti-user menu-icon"></i>
+              <span class="menu-title">Người dùng</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:orders_List' %}">
+              <i class="ti-view-list-alt menu-icon"></i>
+              <span class="menu-title">Đơn hàng</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">Thông tin Sách</p>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table id="books" class="display expandable-table table-striped" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>STT</th>
+                              <th>Tên sách</th>
+                              <th>Tác giả</th>
+                              <th>Phân loại</th>
+                              <th>Giá</th>
+                              <th>Nhà xuất bản</th>
+                              <th>Quốc gia</th>
+                              <th>Năm phát hành</th>
+                              <th>Số lượng</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for book in books %}  
+                                <tr>
+                                  <td>{{ forloop.counter }}</td>
+                                  {% for book_info in book.0 %}  
+                                    <td>{{ book_info }}</td>
+                                  {% endfor %} 
+                                  <td>{{ book.1 }}</td>
+                                </tr>
+                              {% endfor %} 
+                      </table>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Plugin js for this page -->
+  <script src="{% static 'js/admin/vendors/datatables.net/jquery.dataTables.js' %} "></script>
+  <script src="{% static 'js/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
+  <script src="{% static 'js/admin/dataTables.select.min.js' %}"></script>
+  <script src="{% static 'js/admin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
+  <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
+
+  <!-- Custom js for this page-->
+  <script src="{% static 'js/admin/dashboard.js' %}"></script>
+  <script src="{% static 'js/admin/typeahead.js' %}"></script>
+  <script src="{% static 'js/admin/select2.js' %}"></script>
+{% endblock %}
+

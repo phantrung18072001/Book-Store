@@ -1,0 +1,145 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title%} Danh sách các Sách {% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'js/admin/select.dataTables.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial -->
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
+              <i class="icon-book menu-icon"></i>
+              <span class="menu-title">Sách</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="books">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="{% url 'adminPage:books_List' %}"><i class="mdi mdi-information-outline"></i>Thông tin</a></li>
+              </ul>
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="{% url 'adminPage:book_Add' %}"><i class="mdi mdi-plus-circle"></i>Thêm</a></li>
+              </ul>
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="{% url 'adminPage:books_Update' %}"><i class="mdi mdi-sync"></i>Cập nhật</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:users_List' %}">
+              <i class="ti-user menu-icon"></i>
+              <span class="menu-title">Người dùng</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:orders_List' %}">
+              <i class="ti-view-list-alt menu-icon"></i>
+              <span class="menu-title">Đơn hàng</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Thông tin Người dùng</h4>
+                  <p class="card-description">
+                    Tất cả các người dùng đã đăng ký.
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>STT</th>
+                          <th>Username</th>
+                          <th>Email</th>
+                          <th>Số điện thoại</th>
+                          <th>Địa chỉ</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>huuan152</td>
+                          <td>19020201@vnu.edu.vn</td>
+                          <td>0123456789</td>
+                          <td>123 Hồ Gươm</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>trungphan2001</td>
+                          <td>19020471@vnu.edu.vn</td>
+                          <td>0987654321</td>
+                          <td>789 Hồ Tây</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">Advanced Table</p>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table id="example" class="display expandable-table table-striped" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>Quote#</th>
+                              <th>Product</th>
+                              <th>Business type</th>
+                              <th>Policy holder</th>
+                              <th>Premium</th>
+                              <th>Status</th>
+                              <th>Updated at</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                      </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- main-panel ends -->
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Plugin js for this page -->
+  <script src="{% static 'js/admin/vendors/datatables.net/jquery.dataTables.js' %} "></script>
+  <script src="{% static 'js/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
+  <script src="{% static 'js/admin/dataTables.select.min.js' %}"></script>
+  <script src="{% static 'js/admin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
+  <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
+  <!-- Custom js for this page-->
+  <script src="{% static 'js/admin/dashboard.js' %}"></script>
+  <script src="{% static 'js/admin/typeahead.js' %}"></script>
+  <script src="{% static 'js/admin/select2.js' %}"></script>  
+{% endblock %}

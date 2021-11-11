@@ -3,15 +3,13 @@
     <nav class="nav container">
         <a href="{% url 'store:home' %}" class="logo"><img src="{% static 'img/logo_shop.jpg' %}"></a>
         <div class="nav-search">
-            <form action="" class="form-search-book" autocomplete="off">
+            <form action="/shelf" class="form-search-book" autocomplete="off">
                 <input type="text" name="info" class="search-input" placeholder="Nhập vào để tìm kiếm">
                 <div class="select-wrapper">
                     <select name="choose" class="select-filter-book"
                         style="background-image: url()">
-                        <option value="name">Tìm theo tên sách</option>
+                        <option value="title">Tìm theo tên sách</option>
                         <option value="auth">Tìm theo tên tác giả</option>
-                        <option value="publisher">Tìm theo nhà xuất bản</option>
-                        <option value="country">Tìm theo quốc gia</option>
                     </select>
                 </div>
                 <button class="btn-search">
@@ -28,36 +26,14 @@
                 <li class="nav_list_link ">
                     <span class="nav-categories-heading">DANH MỤC</span>
                     <ul class="nav-categories">
+                        {% for category in categories %}
                         <li class="nav-category">
-                            <a href="" class="category-link" id="">Triết học</a>
+                            <a href="/shelf/?category={{category.0}}" class="category-link" id="" name="category">{{category.0}}</a>
                         </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Tôn giáo</a>
-                        </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Ngôn ngữ</a>
-                        </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Khoa học xã hội</a>
-                        </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Khoa học tự nhiên</a>
-                        </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Kỹ thuật</a>
-                        </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Nghệ thuật</a>
-                        </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Văn học</a>
-                        </li>
-                        <li class="nav-category">
-                            <a href="" class="category-link" id="">Địa lý - lịch sử</a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </li>
-                <div class="header__navbar-item header__navbar-item--notify">
+                <!-- <div class="header__navbar-item header__navbar-item--notify">
                     <div class="header_nofi-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="header_navbar-icon-link bi bi-bell-fill" viewBox="0 0 16 16">
@@ -86,7 +62,7 @@
                             <a class="header__notify-footer-btn"></a>
                         </footer>
                     </div>
-                </div>
+                </div> -->
                 <li>
                     <div class="nav-cart">
                         <div class="header_cart-link">
@@ -96,31 +72,36 @@
                                     d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
                             </svg>
                         </div>
-                        <span class="nav-cart-notice">3</span>
+                        <span class="nav-cart-notice">{{count}}</span>
                         <div class="nav-cart-list">
                             <div class="nav-no-cart">
                                 <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f49e36beaf32db.png"
                                     alt="" class="nav-cart--no-cart-img">
                                 <p class="nav-cart--no-cart-text">Chưa Có Sản Phẩm</p>
                             </div>
-                            <div>
+                            <div class="nav_has_cart">
                                 <h3 class="nav-cart-heading">Sản phẩm đã thêm</h3>
                                 <ul class="nav-cart-list-item">
+                                    {% csrf_token %}
+                                    {% for cart_item in cart_items %}
                                     <li class="nav-cart-item">
-                                        <img src="" alt=""
-                                            class="nav_cart-item-img">
+                                        {% for image in cart_item.book.images.all %}
+                                            {% if image.main_image is True %}
+                                            <img src="{{image.path.url}}" alt="Mặt trước" class="nav_cart-item-img">
+                                            {% endif %}
+                                        {% endfor %}
                                         <div class="nav-cart-item-info">
                                             <div class="nav-cart-item-heading">
-                                                <h5 class="nav-cart-item-name">
-                                                </h5>
+                                                <h5 class="nav-cart-item-name">{{cart_item.book.title}}</h5>
                                             </div>
-                                            <div class="nav-cart-item-body">
-                                                <span class="nav-cart-item-desc"></span>
-                                                <span class="nav-cart-item-remove">Xóa</span>
-                                                <input type="hidden" name='cart'>
+                                            <div class="nav-cart-item-body">                                                
+                                                <span class="nav-cart-item-desc">{{cart_item.book.auth}}</span>
+                                                <input type="hidden" name='cart' value="{{cart_item.id}}" class="cart-item-id" >
+                                                <button class="nav-cart-item-remove">Xóa</button>
                                             </div>
                                         </div>
                                     </li>
+                                    {% endfor %}
                                 </ul>
                                 <button class="btn-primary nav-cart-view btn-effect">Xem giỏ hàng</button>
                             </div>
@@ -132,11 +113,16 @@
                         <div class="nav-user">
                             <img src="{{user.image.url}}" alt="" class="nav-user-img">
                             <ul class="nav-user-menu">
+                                {% if user.is_admin %}
+                                <li class="nav-user-item">
+                                    <a href="{% url 'store:dashboard' %}">Trang quản trị</a>
+                                </li>
+                                {% endif %}
                                 <li class="nav-user-item">
                                     <a href="{% url 'accounts:profile' %}">Thông tin cá nhân</a>
                                 </li>
                                 <li class="nav-user-item">
-                                    <a href="">Đơn mượn</a>
+                                    <a href="{% url 'store:infoShip' %}">Đơn hàng</a>
                                 </li>
                                 <li class="nav-user-item">
                                     <a href="{% url 'accounts:logout' %}">Đăng xuất</a>

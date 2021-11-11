@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="wrap container row">
-        <div class="filter col-xl-3">
+        <!-- <div class="filter col-xl-3">
             <div class="filter-heading">
                 <h2 class="filter-heading-text">Bộ lọc</h2>
             </div>
@@ -60,100 +60,76 @@
                     </ol>
                 </div>
             </div>
-        </div>
-        <div class="shelf col-xl-9">
+        </div> -->
+        <div class="shelf col-xl-12">
+            <h5 class="shelf_heading">Kết quả tìm kiếm với:
+                <span>
+                    {% if info %}
+                        {{info}}
+                    {% elif category %}
+                        Thể loại {{category}}
+                    {% endif %}
+                </span>
+            </h5>
             <div class="category-list row">
-                <div class="book-wrapper col-xl-3 col-lg-3">
+                {% for book in books %}
+                <div class="book-wrapper col-xl-2 col-lg-2">
                     <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
+                        <a href="{% url 'store:bookPage' book.id %}" class="book-item-link">
+                            {% for image in book.images.all %}
+                                {% if image.main_image is True %}
+                                    <img src="{{image.path.url}}" class="book-img">
+                                {% endif %}
+                            {% endfor %}
+                            <h4 class="book-name">{{book.title}}</h4>
                         </a>
                         <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
+                            <span class="book-author-name">{{book.auth}}</span>
+                        </div>
+                        <div class="book-item-category">
+                            <p class="ddc-code">Thể loại: <span>{{book.category}}</span></p>
                         </div>
                         <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
+                            <span class="price">Giá: {{book.book_price.price}}đ</span>
+                            <span class="book-sold">SL:{{book.inventories.quantity}}</span>
                         </div>
                     </div>
                 </div>
-                <div class="book-wrapper col-xl-3 col-lg-3">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-3 col-lg-3">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-3 col-lg-3">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-3 col-lg-3">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="book-wrapper col-xl-3 col-lg-3">
-                    <div class="book-item">
-                        <a href="" class="book-item-link">
-                            <img src="{% static 'img/book1.jpg' %}" class="book-img">
-                            <h4 class="book-name">Sách 2</h4>
-                        </a>
-                        <div class="book-item-author">
-                            <span class="book-author-name">Shiba</span>
-                        </div>
-                        <div class="book-item-action">
-                            <p class="ddc-code">Thể loại: <span>Kinh dị</span></p>
-                            <span class="book-sold">SL: 10</span>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+            <nav aria-label="navigation">
+                <ul class="pagination">
+                {% if books.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous"
+                        href="?{% if request.GET.category %}category={{ request.GET.category }}{% elif request.GET.info %}info={{ request.GET.info }}&choose={{ request.GET.choose}}{% endif %}&page={{ books.previous_page_number }}"
+                        >
+                            <span aria-hidden="true">&laquo;</span> 
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if i == books.number %}
+                    <li class="page-item active"><a class="page-link" 
+                        href="?{% if request.GET.category %}category={{ request.GET.category }}{% elif request.GET.info %}info={{ request.GET.info }}&choose={{ request.GET.choose}}{% endif %}&page={{i}}">{{i}}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link"
+                        href="?{% if request.GET.category %}category={{ request.GET.category }}{% elif request.GET.info %}info={{ request.GET.info }}&choose={{ request.GET.choose}}{% endif %}&page={{i}}">{{i}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if books.has_next %}
+                    <li class="page-item">
+                        <!-- Xử lý quả cồng kềnh -->
+                        <a class="page-link"  aria-label="Next"
+                        href="?{% if request.GET.category %}category={{ request.GET.category }}{% elif request.GET.info %}info={{ request.GET.info }}&choose={{ request.GET.choose}}{% endif %}&page={{ books.next_page_number }}">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% endif %}
+                </ul>
+              </nav>
         </div>
     </div>
 {% endblock %}

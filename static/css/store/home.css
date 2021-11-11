@@ -149,13 +149,15 @@
 
 .read-more {
     display:block;
-    margin: 0 auto;
-    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
 
 .read-more-btn {
+    text-align: center;
+    display: block;
     height: 40px;
-    min-width: 200px;
+    width: 200px;
     padding: 10px;
     outline: none;
     border: none;
@@ -163,7 +165,7 @@
     background-color: #dd125f;
     color: #fff;
     border-radius: 3px;
-    margin: 20px;
+    margin: 0 auto;
     line-height: 1.4;
     border: 1px solid #dd125f;
     font-weight: 500;
@@ -174,6 +176,7 @@
 .read-more-btn:hover {
     color: #dd125f;
     border: 1px solid #dd125f;
+    text-decoration: none;
 }
 
 .read-more-btn:before {

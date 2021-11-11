@@ -31,7 +31,7 @@
         <a class="next" >&#10095;</a>
     </div>
     <div class="content container">
-        <div class="section">
+        <!-- <div class="section">
             <div class="content-heading">
                 <img src="https://cdn0.fahasa.com/skin/frontend/base/default/images/ico_dealhot.png">
                 <h3>Xu hướng mua sắm</h3>
@@ -132,11 +132,11 @@
                         </div>
                     </div>
                 </div>
-                <a href="" class="read-more">
-                    <button class="read-more-btn">Xem thêm</button>
-                </a>
             </div>
-        </div>
+            <div class="read-more">
+                <a href="{% url 'store:shelf'%}" class="read-more-btn">Xem thêm</a>
+            </div>
+        </div> -->
         {% for category, books in context.items %}         
         <div class="section">
             <div class="content-heading">
@@ -163,15 +163,15 @@
                             <p class="ddc-code">Thể loại: <span>{{category}}</span></p>
                         </div>
                         <div class="book-item-action">
-                            <span class="price">Giá: {{book.price}}đ</span>
-                            <span class="book-sold">SL:{{book.inventories.all.0.quantity}}</span>
+                            <span class="price">Giá: {{book.book_price.price}}đ</span>
+                            <span class="book-sold">SL: {{book.inventories.quantity}}</span>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            <div href="" class="read-more">
-                <button class="read-more-btn">Xem thêm</button>
+            <div class="read-more">
+                <a href="/shelf/?category={{category}}" class="read-more-btn">Xem thêm</a>
             </div>
         </div>
         {% endfor %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django_countries.fields import CountryField
 from django.shortcuts import reverse
+from accounts.models import Account
 # Create your models here.
 
 CATEGORY_CHOICES = (
@@ -19,14 +20,13 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     auth = models.CharField(max_length=100)
     category = models.CharField(choices=CATEGORY_CHOICES,max_length=100)
-    price = models.IntegerField()
     publisher = models.CharField(max_length=100)
     country = CountryField()
     year_publish = models.IntegerField()
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         db_table:"bookshop"
@@ -34,6 +34,12 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+class Book_Price(models.Model):
+    book = models.OneToOneField(Book,on_delete=models.CASCADE,related_name="book_price")
+    price = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
 class Book_Image(models.Model):
     book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name='images')
     main_image = models.BooleanField(default=False)
@@ -43,12 +49,10 @@ class Book_Image(models.Model):
         db_table:"bookshop"
 
 class Book_Inventory(models.Model):
-    book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name="inventories")
+    book = models.OneToOneField(Book,on_delete=models.CASCADE,related_name="inventories")
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-<<<<<<< Updated upstream
-=======
 
     class Meta:
         db_table:"bookshop"
@@ -89,4 +93,3 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_item")
     quantity = models.IntegerField()
     price = models.IntegerField()
->>>>>>> Stashed changes

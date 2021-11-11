@@ -14,49 +14,69 @@
             <p class="no-order-text">Bạn chưa có đơn hàng nào</p>
         </div>
         <div class="history">
+            <h3>Lịch sử mua hàng</h3>
             <table class="table table-striped">
                 <thead>
                     <tr class="row">
                         <th class="col-xl-1">STT</th>
                         <th class="col-xl-2">Sách</th>
-                        <th class="col-xl-1">Giá tiền</th>
+                        <th class="col-xl-2">Giá tiền</th>
                         <th class="col-xl-2">Ngày đặt</th>
                         <th class="col-xl-2">Ngày nhận</th>
-                        <th class="col-xl-2">Địa chỉ</th>
-                        <th class="col-xl-1">Trạng thái</th>
+                        <th class="col-xl-3">Địa chỉ</th>
+                        <th class="col-xl-2">Trạng thái</th>
                         <th class="col-xl-1"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="row">
-                        <td class="col-xl-1">1</td>
+                    {% for order in orders %}
+                    <tr class="row order_row">
+                        <td class="col-xl-1 stt"></td>
                         <td class="col-xl-2">
                             <ul class="list-book">
+                                {% for order_item in order.order_item.all %}
                                 <li class="book">
-                                    <span class="title">Hoa rơi của phật</span>
-                                    <span class="quantity">x2</span>
+                                    <span class="title">{{order_item.book}}</span>
+                                    <span class="quantity">x{{order_item.quantity}}</span>
                                 </li>
-                                <li class="book">
-                                    <span class="title">Hoa rơi của phật 2</span>
-                                    <span class="quantity">x1</span>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </td>
-                        <td class="col-xl-1">200.000 đ</td>
+                        <td class="col-xl-2">{{order.total}} đồng</td>
                         <td class="col-xl-2">
-                            20/10/2011
+                            <input type="date" name="" value='{{order.created_at|date:"Y-d-m"}}' disabled>
                         </td>
                         <td class="col-xl-2">
-                            22/10/2011
+                            {% if order.status == 'Completed' %}
+                                <input type="date" name="" value='{{order.updated_at|date:"Y-d-m"}}' disabled>                                
+                            {% endif %}
+                            <input type="date" name="" value='{{order.updated_at|date:"Y-d-m"}}' disabled>                                
                         </td>
-                        <td class="col-xl-2">Yên Thành, Nghệ An</td>
-                        <td class="col-xl-1">Đã giao</td>
+                        <td class="col-xl-3">{{order.address}}</td>
+                        <td class="col-xl-2">
+                            {% if order.status == 'Wait'%}
+                            <span>Chờ xử lý</span>
+                            {% elif order.status == 'Sending'%}
+                            <span>Đang vận chuyển</span>
+                            {% elif order.status == 'Completed'%}
+                            <span>Hoàn thành</span>
+                            {% else %}
+                            <span>Đã hủy</span>
+                            {% endif %}
+                        </td>
                         <td class="col-xl-1">
-                            <button class='cancel'>Hủy</button>
+                            {% if order.status == 'Wait'%}
+                            <a href="{% url 'store:update_order' order.id %}" class='cancel'>Hủy</a>
+                            {% endif %}
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/infoShip.js' %}"></script>
 {% endblock %}

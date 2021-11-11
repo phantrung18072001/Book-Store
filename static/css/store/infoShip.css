@@ -10,6 +10,12 @@
     display: none;
 }
 
+.history > h3 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
 .table thead th {
     font-size: 15px;
     text-align: center;
@@ -53,3 +59,27 @@
 .cancel:focus {
     outline: none;
 }
+
+
+/* formar table */
+
+.col-xl-1 {
+    flex: 0 0 calc(100%/15);
+    max-width: calc(100%/15);
+}
+
+.col-xl-2 {
+    flex: 0 0 calc(100%/15*2);
+    max-width: calc(100%/15*2);
+}
+
+.col-xl-3 {
+    flex: 0 0 calc(100%/15*3);
+    max-width: calc(100%/15*3);
+}
+
+input[type="date"] {
+    text-align: center;
+    width: 100%;
+}
+

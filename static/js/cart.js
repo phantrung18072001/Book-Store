@@ -13,8 +13,8 @@ $(document).ready(function() {
     let arrNum = $('.cart-num')
     let listItemBig = $('.row-cart');
     let listItemSmall = $('.nav-cart-item');
-    let bookQuantity = Number($(this).find("#book_quantity").val());
     listItemBig.each(function(index, cur) {
+        let bookQuantity = Number($(this).find("#book_quantity").val());
         $(this).find('> * > * >.btn-add').click(function() {
             arrNum[index].value = parseInt(arrNum[index].value) + 1;
             if (arrNum[index].value > bookQuantity) {

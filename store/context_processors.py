@@ -11,7 +11,8 @@ def add_variable_to_context(request):
             cart_items = CartItem.objects.filter(cart_session=cart)
             for cart_item in cart_items:
                 count += 1
-                total += cart_item.quantity * cart_item.book.price
+                if cart_item.book.book_price:
+                    total += cart_item.quantity * cart_item.book.book_price.price
         except Cart.DoesNotExist:
             cart = None
     return {

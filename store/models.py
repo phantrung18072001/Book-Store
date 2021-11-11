@@ -20,7 +20,6 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     auth = models.CharField(max_length=100)
     category = models.CharField(choices=CATEGORY_CHOICES,max_length=100)
-    price = models.IntegerField()
     publisher = models.CharField(max_length=100)
     country = CountryField()
     year_publish = models.IntegerField()
@@ -32,6 +31,12 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+class Book_Price(models.Model):
+    book = models.OneToOneField(Book,on_delete=models.CASCADE,related_name="book_price")
+    price = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
 class Book_Image(models.Model):
     book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name='images')
     main_image = models.BooleanField(default=False)

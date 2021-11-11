@@ -57,7 +57,7 @@ def add_cart(request,book_id):
                 pass
             else:
                 cart_item = CartItem.objects.create(cart_session=cart, book=book, quantity=book_quantity)
-                cart.total += book_quantity * book.price;
+                cart.total += book_quantity * book.book_price.price;
                 cart_item.save()
                 cart.save()
         return redirect(request.META['HTTP_REFERER'])
@@ -73,7 +73,7 @@ def update_cart(request):
             cart_item.quantity = cart_item_quantity
             cart_item.save()
             cart = Cart.objects.get(id=cart_item.cart_session.id)
-            cart.total = cart.total + (cart_item.quantity-old_quantity) * cart_item.book.price
+            cart.total = cart.total + (cart_item.quantity-old_quantity) * cart_item.book.book_price.price
             cart.save()
             return JsonResponse({'status':'Update successfully','total_cart':cart.total})
         else:
@@ -88,7 +88,7 @@ def remove_cart(request):
             count -= 1
             cart_item = CartItem.objects.get(id=cartitem_id)
             cart = Cart.objects.get(id=cart_item.cart_session.id)
-            cart.total = cart.total - cart_item.quantity * cart_item.book.price
+            cart.total = cart.total - cart_item.quantity * cart_item.book.book_price.price
             cart_item.delete()
             cart.save()
             return JsonResponse({'status':'Update successfully','total_cart':cart.total, 'count':count})
@@ -113,7 +113,7 @@ def order(request):
             cart_item.book.inventories.quantity -= cart_item.quantity
             cart_item.book.inventories.save()
             orderitem = OrderItem.objects.create(order=order,book=cart_item.book,
-                                    quantity=cart_item.quantity,price=cart_item.book.price)
+                                    quantity=cart_item.quantity,price=cart_item.book.book_price.price)
             cart_item.delete()
         cart.delete()
     return redirect("store:infoShip")

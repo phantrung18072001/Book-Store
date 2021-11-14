@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base2.html" %}
 {% load static %}
 {% block title%} Thêm Sách {% endblock %}
 {% block extra_css %}
@@ -12,12 +12,6 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
@@ -53,125 +47,122 @@
       <!-- partial -->
       <div class="main-panel">        
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-4 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Bìa sách</h4>
-                  <form class="form-sample" id="bookCover" method="POST">
-                      {% csrf_token %}
-                    <div class="form-group">
-                      <label for="FrontCover">Bìa trước</label>
-                      <div class="form-group" id="displayFrontCover"></div>                    
-                      <input type="file" id="FrontCover" name="img[]" class="file-upload-default">
-                      <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled placeholder="Tải ảnh lên" required>
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
-                        </span>
+          <form class="form-sample" id="bookInfo" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Bìa sách</h4>
+                      <div class="form-group">
+                        <label for="FrontCover">Bìa trước</label>
+                        <div class="form-group" id="displayFrontCover" style="width: auto;"></div>                    
+                        <input type="file" id="FrontCover" name="FrontCover_Image" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="text" id="FrontCoverName" class="form-control file-upload-info" disabled placeholder="Tải ảnh lên" required>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="BackCover">Bìa sau</label>
-                      <div class="form-group" id="displayBackCover"></div>                    
-                      <input type="file" id="BackCover" name="img[]" class="file-upload-default">
-                      <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled placeholder="Tải ảnh lên" required>
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
-                        </span>
+                      <div class="form-group">
+                        <label for="BackCover">Bìa sau</label>
+                        <div class="form-group" id="displayBackCover" style="width: auto;"></div>                    
+                        <input type="file" id="BackCover" name="BackCover_Image" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="text" id="BackCoverName" class="form-control file-upload-info" disabled placeholder="Tải ảnh lên" required>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-8 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Sách mới</h4>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookTitle">Tên sách</label>
+                            <input type="text" class="form-control" id="bookTitle" name="title" placeholder="Tôi Thấy Hoa Vàng Trên Cỏ Xanh" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookAuthor">Tác giả</label>
+                            <input type="text" class="form-control" id="bookAuthor" name="auth" placeholder="Nguyễn Nhật Ánh" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookCategory">Phân loại</label>
+                            <input type="text" class="form-control" id="bookCategory" name="category" placeholder="Văn học" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookPrice">Giá</label>
+                            <input type="text" class="form-control" id="bookPrice" name="price" placeholder="125000" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookPublisher">Nhà xuất bản</label>
+                            <input type="text" class="form-control" id="bookPublisher" name="publisher" placeholder="NXB Trẻ" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookCountry">Quốc gia</label>
+                            <input type="text" class="form-control" id="bookCountry" name="country" placeholder="VN" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookYearPublish">Năm phát hành</label>
+                            <input type="text" class="form-control" id="bookYearPublish" name="year_publish" placeholder="2010" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">  
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookQuantity">Số lượng</label>
+                            <input type="text" class="form-control" id="bookQuantity" name="quantity" placeholder="100" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookDescription">Mô tả</label>
+                            <textarea class="form-control" id="bookDescription" name="description" rows="12" required></textarea>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-8 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Sách mới</h4>
-                  <form class="form-sample" id="bookInfo" method="POST">
-                      {% csrf_token %}
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookTitle">Tên sách</label>
-                          <input type="text" class="form-control" id="bookTitle" name="title" placeholder="Tôi Thấy Hoa Vàng Trên Cỏ Xanh" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookAuthor">Tác giả</label>
-                          <input type="text" class="form-control" id="bookAuthor" name="auth" placeholder="Nguyễn Nhật Ánh" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookCategory">Phân loại</label>
-                          <input type="text" class="form-control" id="bookCategory" name="category" placeholder="Văn học" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookPrice">Giá</label>
-                          <input type="text" class="form-control" id="bookPrice" name="price" placeholder="125000" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookPublisher">Nhà xuất bản</label>
-                          <input type="text" class="form-control" id="bookPublisher" name="publisher" placeholder="NXB Trẻ" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookCountry">Quốc gia</label>
-                          <input type="text" class="form-control" id="bookCountry" name="country" placeholder="VN" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookYearPublish">Năm phát hành</label>
-                          <input type="text" class="form-control" id="bookYearPublish" name="year_publish" placeholder="2010" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">  
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookQuantity">Số lượng</label>
-                          <input type="text" class="form-control" id="bookQuantity" name="quantity" placeholder="100" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookDescription">Mô tả</label>
-                          <textarea class="form-control" id="bookDescription" name="description" rows="12" required></textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+            <div style="display: flex; justify-content: center; align-items: center;" class="form-group">
+              <button type="button" class="btn btn-primary mr-2" onclick="submitForms()">Thêm</button>
             </div>
-          </div>
-          <div style="display: flex; justify-content: center; align-items: center;" class="form-group">
-            <button type="button" class="btn btn-primary mr-2" onclick="submitForms()">Thêm</button>
-          </div>
+          </form>
           {% if messages %}
             {% for message in messages %}
               <script>
@@ -195,12 +186,6 @@
   <script src="{% static 'js/admin/vendors/jquery-file-upload/jquery.uploadfile.min.js' %}"></script>
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
-  <script>
-    submitForms = function() {
-      document.getElementById("bookCover").submit();
-      document.getElementById("bookInfo").submit();
-    }
-  </script>
 {% endblock %}
 
 

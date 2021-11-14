@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'store',
     'django_countries',
     'accounts',
+    'dbbackup',
 ]
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'backup'}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,9 +87,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bookshop',
         'USER': 'root',
-        'PASSWORD': '13041807',
+        'PASSWORD': 'HuuAn1522001@',
         'HOST': 'localhost',
-        'PORT': '3307',
+        'PORT': '3306',
     }
 }
 

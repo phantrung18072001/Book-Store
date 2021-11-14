@@ -33,3 +33,7 @@ BackCover.addEventListener('change', function() {
   });
   BackCover_reader.readAsDataURL(this.files[0]);
 });
+
+submitForms = function() {
+  document.getElementById("bookInfo").submit();
+}

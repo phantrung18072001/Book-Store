@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base2.html" %}
 {% load static %}
 {% block title%} Danh sách các Sách {% endblock %}
 {% block extra_css %}
@@ -14,12 +14,6 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
@@ -56,82 +50,40 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Cập nhật Thông tin sách</h4>
-                  <p class="card-description">
-                    Nhấp chuột để cập nhật thông tin sách.
-                  </p>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                            <th></th>
-                            <th>STT</th>
-                            <th>Tên sách</th>
-                            <th>Tác giả</th>
-                            <th>Phân loại</th>
-                            <th>Giá</th>
-                            <th>Nhà xuất bản</th>
-                            <th>Quốc gia</th>
-                            <th>Năm phát hành</th>
-                            <th>Số lượng</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr data-link="../../pages/books/book_Modify.html">
-                            <td><button type="button" class="btn btn-primary btn-sm"><i class="mdi mdi-delete"></i></button></td>
-                            <td>1</td>
-                            <td>Mắt Biếc</td>
-                            <td>Nguyễn Nhật Ánh</td>
-                            <td>Văn học</td>
-                            <td>95.500đ</td>
-                            <td>NXB Trẻ</td>
-                            <td>Vietnam</td>
-                            <td>2019</td>
-                            <td>100</td>
-                        </tr>
-                        <tr data-link="../../pages/books/book_Modify.html">
-                            <td><button type="button" class="btn btn-primary btn-sm"><i class="mdi mdi-delete"></i></button></td>
-                            <td>2</td>
-                            <td>Tôi Thấy Hoa Vàng Trên Cỏ Xanh</td>
-                            <td>Nguyễn Nhật Ánh</td>
-                            <td>Văn học</td>
-                            <td>125.000đ</td>
-                            <td>NXB Trẻ</td>
-                            <td>Vietnam</td>
-                            <td>2010</td>
-                            <td>100</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title">Advanced Table</p>
+                  <p class="card-title">Cập nhật Thông tin sách</p>
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table id="example" class="display expandable-table table-striped" style="width:100%">
+                        <table id="books" class="display expandable-table table-striped table-hover" style="width:100%; cursor: pointer;">
                           <thead>
-                            <tr>
-                              <th>Quote#</th>
-                              <th>Product</th>
-                              <th>Business type</th>
-                              <th>Policy holder</th>
-                              <th>Premium</th>
-                              <th>Status</th>
-                              <th>Updated at</th>
-                              <th></th>
+                            <tr style="white-space: pre; text-align: center;">
+                              <th>STT</th>
+                              <th>Tên sách</th>
+                              <th>Tác giả</th>
+                              <th>Phân loại</th>
+                              <th>Nhà xuất bản</th>
+                              <th>Quốc gia</th>
+                              <th>Năm phát hành</th>
+                              <th>Giá</th>
+                              <th>Số lượng</th>
                             </tr>
                           </thead>
+                          <tbody>
+                            {% for book in books %}  
+                              <tr class="clickable-row" style="white-space: pre; text-align: center;">
+                                {% for info in book %}
+                                  {% if forloop.counter == 2 %}
+                                    <td style="display: none;">{{ info }}</td>
+                                  {% else %}
+                                    <td>{{ info }}</td>
+                                  {% endif %}
+                                {% endfor %} 
+                              </tr>
+                            {% endfor %} 
+                          </tbody>
                       </table>
                     </div>
                   </div>
@@ -158,7 +110,16 @@
   <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
   <!-- Custom js for this page-->
   <script src="{% static 'js/admin/dashboard.js' %}"></script>
-  <script src="{% static 'js/admin/books.js' %}"></script>
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+      $('.clickable-row').on('click', function () {
+        var currentRow=$(this).closest('tr');
+        var book_id = parseInt(currentRow.find("td:eq(1)").text());
+        console.log(book_id);
+        window.location.href = "{% url 'adminPage:book_Modify' %}";
+      });
+    });
+  </script>
 {% endblock %}

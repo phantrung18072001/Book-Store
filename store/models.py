@@ -47,7 +47,7 @@ class Book_Inventory(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    
 class Cart(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     total = models.IntegerField(default=0)

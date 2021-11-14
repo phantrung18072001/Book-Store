@@ -186,6 +186,12 @@
   <script src="{% static 'js/admin/vendors/jquery-file-upload/jquery.uploadfile.min.js' %}"></script>
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
+  <script>
+    submitForms = function() {
+      document.getElementById("bookInfo").submit();
+      returnBooks_Update();
+    }
+  </script>
 {% endblock %}
 
 

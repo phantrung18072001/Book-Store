@@ -79,7 +79,7 @@
                               var count = 0;
                             </script>
                             {% for order in orders_Info %}  
-                              <tr style="text-align: center;">
+                              <tr class="clickable-row" style="text-align: center;">
                                 {% for info in order %}
                                   {% if forloop.counter != 8 %}
                                     <td style="white-space: pre;">{{ info }}</td>
@@ -149,6 +149,13 @@
       $(buttonId + " + " + "div .btn-item1").text(buttonContent[0]);
       $(buttonId + " + " + "div .btn-item2").text(buttonContent[1]);
       $(buttonId + " + " + "div .btn-item3").text(buttonContent[2]);
+    });
+    $(document).ready(function() {
+      $('.clickable-row').on('click', function () {
+        var currentRow=$(this).closest('tr');
+        var username = currentRow.find("td:eq(1)").text();
+        window.location.href = "{% url 'adminPage:changeStatus' username %}";
+      });
     });
   </script>  
 {% endblock %}

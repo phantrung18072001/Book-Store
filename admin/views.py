@@ -1,14 +1,60 @@
-from django.db.models.sql.where import OR
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import connection
 from django.core.files.storage import FileSystemStorage
+from django.utils import timezone
 from store.models import Book, Book_Image, Book_Inventory, Book_Price, Account, Order, OrderItem
 # Create your views here.
 
+def changeStatus(request, pk):
+    newStatus = Order.objects.get(status = pk)
+
+    return redirect('admin/orders_List.html')
+
+def book_Update(request):
+    if request.method == 'POST':
+        if request.POST.get('title') and request.POST.get('auth') and request.POST.get('category') and request.POST.get('price') and request.POST.get('publisher') and request.POST.get('country') and request.POST.get('year_publish') and request.POST.get('description') and request.POST.get('quantity'):
+            newBook = Book.objects.get(id=request.POST.get('id'))
+            newBook_Price = Book_Price.objects.get(book=request.POST.get('id'))
+            newBook_Inventory = Book_Inventory.objects.get(book=request.POST.get('id'))
+            newBook_FrontCover_Image = Book_Image.objects.get(book=request.POST.get('id'), main_image=True)
+            newBook_BackCover_Image = Book_Image.objects.get(book=request.POST.get('id'), main_image=False)
+            newBook.title = request.POST.get('title')
+            newBook.auth = request.POST.get('auth')
+            newBook.category = request.POST.get('category')
+            newBook.price = request.POST.get('price')
+            newBook.publisher = request.POST.get('publisher')
+            newBook.country = request.POST.get('country')
+            newBook.year_publish = request.POST.get('year_publish')
+            newBook.description = request.POST.get('description')
+            newBook.save()
+            newBook_Price.price = request.POST.get('price')
+            newBook_Price.save()
+            newBook_Inventory.quantity = request.POST.get('quantity')
+            newBook_Inventory.save()
+            fs = FileSystemStorage()
+            if request.FILES['FrontCover_Image'] != None:
+                uploaded_FrontCover_image = request.FILES['FrontCover_Image']
+                newBook_FrontCover_Image.path = uploaded_FrontCover_image.name
+                fs.save(uploaded_FrontCover_image.name, uploaded_FrontCover_image)
+                newBook_FrontCover_Image.save()
+            if request.FILES['BackCover_Image'] != None:    
+                uploaded_BackCover_image = request.FILES['BackCover_Image']
+                newBook_BackCover_Image.path = uploaded_BackCover_image.name
+                fs.save(uploaded_BackCover_image.name, uploaded_BackCover_image)
+                newBook_BackCover_Image.save()
+    return redirect('adminPage:books_Update')
+
+def book_Delete(request):
+    if request.method == 'POST':
+        book = Book.objects.get(id=request.POST.get('id'))
+        book.deleted_at = timezone.now()
+        book.save()
+    return redirect('adminPage:books_Update')
+
 def book_Modify(request):
-    book_id = 3
-    book_Modify =  list(Book.objects.filter(id=book_id).values_list('title', 'auth', 'category', 'publisher', 'country', 'year_publish', 'description'))
+    book_id = 22
+    book_Modify =  list(Book.objects.filter(id=book_id).values_list('id', 'title', 'auth', 'category', 'publisher', 'country', 'year_publish', 'description'))
     books_Modify_Inventory = list(Book_Inventory.objects.filter(book=book_id).values_list('quantity', flat=True))
     books_Modify_Price = list(Book_Price.objects.filter(book=book_id).values_list('price', flat=True))
     book_Modify_Image = list(Book_Image.objects.filter(book=book_id).values_list('path', flat=True))
@@ -17,7 +63,6 @@ def book_Modify(request):
     book.append(books_Modify_Inventory)
     book.append(books_Modify_Price)
     book.append(book_Modify_Image)
-    print(book)
     return render(request,'admin/book_Modify.html', {'book': book})    
 
 def book_Add(request):
@@ -59,7 +104,7 @@ def book_Add(request):
     return render(request,'admin/book_Add.html')
 
 def books_List(request):
-    books_List = list(Book.objects.values_list('title', 'auth', 'category', 'publisher', 'country', 'year_publish'))
+    books_List = list(Book.objects.filter(deleted_at = None).values_list('title', 'auth', 'category', 'publisher', 'country', 'year_publish'))
     books_List_Inventory = list(Book_Inventory.objects.values_list('quantity', flat=True))
     books_List_Price = list(Book_Price.objects.values_list('price', flat=True))
     books = []
@@ -70,11 +115,10 @@ def books_List(request):
         book.append(books_List_Price[x])
         book.append(books_List_Inventory[x])
         books.append(book)
-    print(books)
     return render(request,'admin/books_List.html',{'books': books})    
 
 def books_Update(request):
-    books_List = list(Book.objects.values_list('id', 'title', 'auth', 'category', 'publisher', 'country', 'year_publish'))
+    books_List = list(Book.objects.filter(deleted_at = None).values_list('id', 'title', 'auth', 'category', 'publisher', 'country', 'year_publish'))
     books_List_Inventory = list(Book_Inventory.objects.values_list('quantity', flat=True))
     books_List_Price = list(Book_Price.objects.values_list('price', flat=True))
     books = []

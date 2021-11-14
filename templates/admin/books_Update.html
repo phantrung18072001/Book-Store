@@ -117,7 +117,6 @@
       $('.clickable-row').on('click', function () {
         var currentRow=$(this).closest('tr');
         var book_id = parseInt(currentRow.find("td:eq(1)").text());
-        console.log(book_id);
         window.location.href = "{% url 'adminPage:book_Modify' %}";
       });
     });

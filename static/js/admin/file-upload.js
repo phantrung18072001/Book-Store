@@ -20,20 +20,39 @@ FrontCover.addEventListener('change', function() {
   const FrontCover_reader = new FileReader();
   FrontCover_reader.addEventListener('load', () => {
     uploaded_FrontCover = FrontCover_reader.result;
+    document.querySelector("#displayFrontCover").style.backgroundImage = null;
     document.querySelector("#displayFrontCover").style.backgroundImage = `url(${uploaded_FrontCover})`;
   });
   FrontCover_reader.readAsDataURL(this.files[0]);
+  document.getElementById("FrontCover_Image").setAttribute("value", this.files[0])
 });
 
 BackCover.addEventListener('change', function() {
   const BackCover_reader = new FileReader();
   BackCover_reader.addEventListener('load', () => {
     uploaded_BackCover = BackCover_reader.result;
+    document.querySelector("#displayBackCover").style.backgroundImage = null;
     document.querySelector("#displayBackCover").style.backgroundImage = `url(${uploaded_BackCover})`;
   });
   BackCover_reader.readAsDataURL(this.files[0]);
+  document.getElementById("BackCover_Image").setAttribute("value", this.files[0])
 });
 
+returnBooks_Update = function() {
+  window.location.href = "{% url 'adminPage:books_Update' %}";
+}
+
 submitForms = function() {
+  document.getElementById("bookInfo").submit();
+  returnBooks_Update();
+}
+
+submitForm = function() {
+  document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Update' %}");
+  document.getElementById("bookInfo").submit();
+}
+
+deleteForm = function() {
+  document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Delete' %}")
   document.getElementById("bookInfo").submit();
 }

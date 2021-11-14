@@ -75,23 +75,19 @@
                 {% for book in books %}
                 <div class="book-wrapper col-xl-2 col-lg-2">
                     <div class="book-item">
-                        <a href="{% url 'store:bookPage' book.id %}" class="book-item-link">
-                            {% for image in book.images.all %}
-                                {% if image.main_image is True %}
-                                    <img src="{{image.path.url}}" class="book-img">
-                                {% endif %}
-                            {% endfor %}
-                            <h4 class="book-name">{{book.title}}</h4>
+                        <a href="{% url 'store:bookPage' book.0 %}" class="book-item-link">
+                            <img src="/media/{{book.6}}" class="book-img">
+                            <h4 class="book-name">{{book.1}}</h4>
                         </a>
                         <div class="book-item-author">
-                            <span class="book-author-name">{{book.auth}}</span>
+                            <span class="book-author-name">{{book.2}}</span>
                         </div>
                         <div class="book-item-category">
-                            <p class="ddc-code">Thể loại: <span>{{book.category}}</span></p>
+                            <p class="ddc-code">Thể loại: <span>{{book.3}}</span></p>
                         </div>
                         <div class="book-item-action">
-                            <span class="price">Giá: {{book.book_price.price}}đ</span>
-                            <span class="book-sold">SL:{{book.inventories.quantity}}</span>
+                            <span class="price">Giá: {{book.4}}đ</span>
+                            <span class="book-sold">SL:{{book.5}}</span>
                         </div>
                     </div>
                 </div>

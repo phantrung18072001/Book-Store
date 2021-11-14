@@ -93,8 +93,8 @@
                                     <label class="lb birth">
                                         <h4>Ngày Sinh</h4>
                                     </label>
-                                    <input type="date" class="form-control" name="birth" autocomplete="off"
-                                        value="{{user.birth|date:"Y-d-m"}}" min="1900-01-01"
+                                    <input type="datetime" class="form-control" name="birth" autocomplete="off"
+                                        value="{{user.birth|date:"d-m-Y"}}" min="1900-01-01"
                                         max="2009-12-31">
                                 </div>
                                 <div class="alert alert-danger"></div>

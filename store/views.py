@@ -1,3 +1,4 @@
+from django.db import connection
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -11,7 +12,7 @@ def home(request):
     context = {}
     categories = CATEGORY_CHOICES
     for category in categories:
-        books = Book.objects.filter(category=category[0]).order_by('-created_at')[:6:1] #có 9 câu truy vấn
+        books = Book.objects.filter(category=category[0]).prefetch_related('inventories','images').order_by('-created_at')[:6:1] #có 9 câu truy vấn
         if books:
             context[category[0]] = books
     return render(request,'store/home.html', {'context':context})
@@ -20,26 +21,20 @@ def shelf(request):
     info = request.GET.get('info',"")
     choose = request.GET.get('choose',"")
     category = request.GET.get('category',"")
+    cursor = connection.cursor()
     books = None
     if info is not None and info.strip() != '':
-        if choose == 'title':
-            books = Book.objects.filter(title__icontains=info).order_by('-created_at')
-        elif choose == 'auth':
-            books = Book.objects.filter(auth__icontains=info).order_by('-created_at')
+        cursor.execute('call search_by_info("%s","%s")'%(info, choose))
+        books = cursor.fetchall()
     elif category:
-        books = Book.objects.filter(category=category).order_by('-created_at')
+        cursor.execute('call search_by_category("%s")'%(category))
+        books = cursor.fetchall()
     else:
         return redirect(request.META['HTTP_REFERER'])
-    p = Paginator(books, 1)
-    page_num = request.GET.get('page',1)
-    try:
-        page = p.page(page_num)
-    except EmptyPage:
-        page = p.page(1)
-    return render(request,'store/shelf.html',{'books':page, 'category':category, 'info':info, 'paginator':p})
+    return render(request,'store/shelf.html',{'books':books, 'category':category, 'info':info})
 
 def bookPage(request,pk):
-    book = Book.objects.get(id=pk)
+    book = Book.objects.filter(id=pk).prefetch_related('inventories','images')[0]
     return render(request,'store/bookPage.html',{'book':book})
 
 def add_cart(request,book_id):
@@ -114,7 +109,7 @@ def order(request):
             cart_item.book.inventories.save()
             orderitem = OrderItem.objects.create(order=order,book=cart_item.book,
                                     quantity=cart_item.quantity,price=cart_item.book.book_price.price)
-            cart_item.delete()
+        cart_items.delete()
         cart.delete()
     return redirect("store:infoShip")
 

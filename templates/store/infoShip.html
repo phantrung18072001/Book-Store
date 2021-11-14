@@ -44,13 +44,12 @@
                         </td>
                         <td class="col-xl-2">{{order.total}} đồng</td>
                         <td class="col-xl-2">
-                            <input type="date" name="" value='{{order.created_at|date:"Y-d-m"}}' disabled>
+                            <input type="datetime" name="" value='{{order.created_at|date:"d-m-Y"}}' disabled>
                         </td>
                         <td class="col-xl-2">
                             {% if order.status == 'Completed' %}
-                                <input type="date" name="" value='{{order.updated_at|date:"Y-d-m"}}' disabled>                                
+                                <input type="datetime" name="" value='{{order.updated_at|date:"d-m-Y"}}' disabled>                                
                             {% endif %}
-                            <input type="date" name="" value='{{order.updated_at|date:"Y-d-m"}}' disabled>                                
                         </td>
                         <td class="col-xl-3">{{order.address}}</td>
                         <td class="col-xl-2">

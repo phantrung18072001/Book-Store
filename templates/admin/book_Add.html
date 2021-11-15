@@ -103,7 +103,11 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="bookCategory">Phân loại</label>
-                            <input type="text" class="form-control" id="bookCategory" name="category" placeholder="Văn học" required/>
+                            <select style="display: block;" class="form-control" id="bookCategory" name="category">
+                              {% for category in categories %}
+                                <option value="{{ category.0 }}">{{ category.1 }}</option>
+                              {% endfor %}
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -127,7 +131,13 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="bookCountry">Quốc gia</label>
-                            <input type="text" class="form-control" id="bookCountry" name="country" placeholder="VN" required/>
+                            {% load countries %}
+                            {% get_countries as countries %}
+                            <select style="display: block;" class="form-control" id="bookCountry" name="country">
+                              {% for country in countries %}
+                                <option value="{{ country.code }}">{{ country.name }}</option>
+                              {% endfor %}
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -163,16 +173,6 @@
               <button type="button" class="btn btn-primary mr-2" onclick="submitForms()">Thêm</button>
             </div>
           </form>
-          {% if messages %}
-            {% for message in messages %}
-              <script>
-                function myFunction() {
-                  alert("Thêm sách mới thành công!");
-                }
-                myFunction()
-              </script>
-            {% endfor %}
-          {% endif %}
         </div>
         <!-- content-wrapper ends -->
       </div>
@@ -189,7 +189,6 @@
   <script>
     submitForms = function() {
       document.getElementById("bookInfo").submit();
-      returnBooks_Update();
     }
   </script>
 {% endblock %}

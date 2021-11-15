@@ -56,10 +56,10 @@
                     <h4 class="card-title">Bìa sách</h4>
                       <div class="form-group">
                         <label for="FrontCover">Bìa trước</label>
-                        <div class="form-group" id="displayFrontCover" style="width: auto;"><img id="FrontCoverIMG" src="/media/{{ book.3.0 }}" style="max-width: 100%; max-height: 100%;"></div>                    
+                        <div class="form-group" id="displayFrontCover" style="background-image: url('/media/{{ book.3.0 }}'); width: auto;"></div>                    
                         <input type="file" id="FrontCover" name="FrontCover_Image" class="file-upload-default">
                         <div class="input-group col-xs-12">
-                          <input type="text" id="FrontCover_Image" class="form-control file-upload-info" disabled value="{{ book.3.0 }}" onclick="cleanSpaceForImage1()" required>
+                          <input type="text" id="FrontCover_Image" class="form-control file-upload-info" disabled value="{{ book.3.0 }}" required>
                           <span class="input-group-append">
                             <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
                           </span>
@@ -67,10 +67,10 @@
                       </div>
                       <div class="form-group">
                         <label for="BackCover">Bìa sau</label>
-                        <div class="form-group" id="displayBackCover" style="width: auto;"><img id="BackCoverIMG" src="/media/{{ book.3.1 }}" style="max-width: 100%; max-height: 100%;"></div>                    
+                        <div class="form-group" id="displayBackCover" style="background-image: url('/media/{{ book.3.1 }}'); width: auto;"></div>                    
                         <input type="file" id="BackCover" name="BackCover_Image" class="file-upload-default">
                         <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled value="{{ book.3.1 }}" onclick="cleanSpaceForImage2()" required>
+                          <input type="text" id="BackCover_Image" class="form-control file-upload-info" disabled value="{{ book.3.1 }}" required>
                           <span class="input-group-append">
                             <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
                           </span>
@@ -111,7 +111,11 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="bookCategory">Phân loại</label>
-                            <input type="text" class="form-control" id="bookCategory" name="category" value="{{book.0.0.3}}" required/>
+                            <select style="display: block;" class="form-control" id="bookCategory" name="category">
+                              {% for category in categories %}
+                                <option value="{{ category.0 }}" {% if category.1 == book.0.0.3 %} selected = "selected" {% endif %}>{{ category.1 }}</option>
+                              {% endfor %}
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -135,7 +139,13 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="bookCountry">Quốc gia</label>
-                            <input type="text" class="form-control" id="bookCountry" name="country" value="{{book.0.0.5}}" required/>
+                            {% load countries %}
+                            {% get_countries as countries %}
+                            <select style="display: block;" class="form-control" id="bookCountry" name="country">
+                              {% for country in countries %}
+                                <option value="{{ country.code }}" {% if country.code == book.0.0.5 %} selected = "selected" {% endif %}>{{ country.name }}</option>
+                              {% endfor %}
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -200,21 +210,6 @@
     deleteForm = function() {
       document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Delete' %}")
       document.getElementById("bookInfo").submit();
-    }
-
-    cleanSpaceForImage1 = function() {
-      var item = document.getElementById("FrontCoverIMG");
-      item.parentNode.removeChild(item);
-      newImg = document.createElement("img")
-      item.parentNode.appendChild(newImg);
-      document.getElementById("FrontCover_Image").setAttribute("value", "")
-    }
-
-    cleanSpaceForImage2 = function() {
-      var item = document.getElementById("BackCoverIMG");
-      item.parentNode.removeChild(item);
-      item.parentNode.appendChild("img");
-      document.getElementById("BackCover_Image").setAttribute("value", "")
     }
   </script>
 {% endblock %}

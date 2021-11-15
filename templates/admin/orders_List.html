@@ -49,10 +49,6 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <!-- <td><label class="badge badge-danger">Chờ xử lý</label></td>
-          <td><label class="badge badge-warning">Đang vận chuyển</label></td>
-          <td><label class="badge badge-info">Đã hủy</label></td>
-          <td><label class="badge badge-success">Hoàn thành</label></td> -->
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
@@ -76,36 +72,50 @@
                           </thead>
                           <tbody>
                             <script>
+                              var buttonID;
+                              var formID;
+                              var currentStatusID;
                               var count = 0;
+                              var currentRow;
+                              var orderID;
+                              var status;
                             </script>
-                            {% for order in orders_Info %}  
+                            {% for order in orders_Info %}
+                            <form  id="formTarget" enctype="multipart/form-data" method="POST" action="{% url 'adminPage:statusChange' %}">  
+                              {% csrf_token %}
                               <tr class="clickable-row" style="text-align: center;">
                                 {% for info in order %}
-                                  {% if forloop.counter != 8 %}
+                                  {% if forloop.counter != 9 %}
+                                    {% if forloop.counter != 1 %}
                                     <td style="white-space: pre;">{{ info }}</td>
-                                  {% else %}
-                                  <td style="justify-self: center;">
-                                    <div class="dropdown">
-                                      <button class="btn btn-primary btn-sm dropdown-toggle dropdown-btn" type="button" id="dropdown_Button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick="reply_click(this.id)">
-                                        {{ info.0 }}
-                                      </button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdown_Button">
-                                        <a class="dropdown-item btn-item1" style="cursor: pointer;">{{ info.1 }}</a>
-                                        <a class="dropdown-item btn-item2" style="cursor: pointer;">{{ info.2 }}</a>
-                                        <a class="dropdown-item btn-item3" style="cursor: pointer;">{{ info.3 }}</a>
+                                    {% else %}
+                                    <input type='text' style="display: none;" name="orderID" value="{{ info }}"></input>
+                                    {% endif %}
+                                  {% elif forloop.counter %}
+                                    <td style="justify-self: center;">
+                                      <div class="dropdown">
+                                        <input id="currentStatus" type='text' style="display: none;" name="newStatus" value="{{ info.0 }}"></input>
+                                        <button class="btn btn-primary btn-sm dropdown-toggle dropdown-btn" type="button" id="dropdown_Button" name="statusChange" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ info.0 }}</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown_Button">
+                                          <a class="dropdown-item btn-item1" style="cursor: pointer;">{{ info.1 }}</a>
+                                          <a class="dropdown-item btn-item2" style="cursor: pointer;">{{ info.2 }}</a>
+                                          <a class="dropdown-item btn-item3" style="cursor: pointer;">{{ info.3 }}</a>
+                                        </div>
                                       </div>
-                                    </div>
-                                    <script>
-                                      function uniqueButton() {
-                                        document.getElementById('dropdown_Button').id = 'dropdown_Button' + count.toString();
-                                        count++;
-                                      }
-                                      uniqueButton();
-                                    </script>
+                                      <script>
+                                        function uniqueButton() {
+                                          document.getElementById('dropdown_Button').id = 'dropdown_Button' + count.toString();
+                                          document.getElementById('formTarget').id = 'formTarget' + count.toString();
+                                          document.getElementById('currentStatus').id = 'currentStatus' + count.toString();
+                                          count++;
+                                        }
+                                        uniqueButton();
+                                      </script>
+                                    </td>
                                   {% endif %}
-                                </td>
                                 {% endfor %} 
                               </tr>
+                            </form>
                             {% endfor %} 
                           </tbody>
                         </table>
@@ -132,30 +142,38 @@
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
   <script>
-    let buttonId = "";
-    function reply_click(clicked_id) {
-      buttonId = "#" + clicked_id;
-    }
+    $(".dropdown-btn").on("click", function() {
+      buttonID = "#" + $(this).attr('id');
+      IDnumber = buttonID.substring(16, 17);
+      formID = "#formTarget" + IDnumber;
+      currentStatusID = "#currentStatus" + IDnumber;
+    });
+
     $(".dropdown-menu a").on("click", function() {
       let buttonContent = ["Chờ xử lý", "Đang vận chuyển", "Hoàn thành", "Đã hủy"];
-      $(buttonId).text($(this).text());
+      $(buttonID).text($(this).text());
       content = $(this).text();
+      $(currentStatusID).attr('value', content);
+      console.log(currentStatusID);
       for (let i = 0; i < 4; i++) {
         if (content == buttonContent[i]) {
           buttonContent.splice(i, 1);
           break;
         }
       }
-      $(buttonId + " + " + "div .btn-item1").text(buttonContent[0]);
-      $(buttonId + " + " + "div .btn-item2").text(buttonContent[1]);
-      $(buttonId + " + " + "div .btn-item3").text(buttonContent[2]);
+      $(buttonID + " + " + "div .btn-item1").text(buttonContent[0]);
+      $(buttonID + " + " + "div .btn-item2").text(buttonContent[1]);
+      $(buttonID + " + " + "div .btn-item3").text(buttonContent[2]);
+      $(formID).submit();
     });
-    $(document).ready(function() {
-      $('.clickable-row').on('click', function () {
-        var currentRow=$(this).closest('tr');
-        var username = currentRow.find("td:eq(1)").text();
-        window.location.href = "{% url 'adminPage:changeStatus' username %}";
-      });
-    });
+
+    /* $('.clickable-row').on('click', function () {
+      currentRow=$(this).closest('tr');
+      orderID = parseInt(currentRow.find("td:eq(1)").text());
+      status = $(buttonID).text();
+      console.log(orderID);
+      console.log(status);
+      console.log(formID);
+    }); */
   </script>  
 {% endblock %}

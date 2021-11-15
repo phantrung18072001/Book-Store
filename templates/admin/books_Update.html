@@ -49,6 +49,9 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+          <form class="form-sample" id="bookInfo" enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            <input style="display: none;" value="" id="bookUpdate" name="bookID">
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
@@ -93,6 +96,7 @@
             </div>
           </div>
         </div>
+      </form>
         <!-- content-wrapper ends -->
       </div>
       <!-- main-panel ends -->
@@ -117,7 +121,10 @@
       $('.clickable-row').on('click', function () {
         var currentRow=$(this).closest('tr');
         var book_id = parseInt(currentRow.find("td:eq(1)").text());
-        window.location.href = "{% url 'adminPage:book_Modify' %}";
+        console.log(book_id);
+        document.getElementById("bookUpdate").setAttribute("value", book_id);
+        document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Modify' %}");
+        document.getElementById("bookInfo").submit();
       });
     });
   </script>

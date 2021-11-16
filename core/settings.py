@@ -32,6 +32,7 @@ AUTH_USER_MODEL  = 'accounts.Account'
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,14 @@ INSTALLED_APPS = [
     'store',
     'django_countries',
     'accounts',
+    'dbbackup',
+]
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'backup'}
+
+CRONJOBS = [
+    ('*/1 * * * *', 'core.cron.backupDB')
 ]
 
 MIDDLEWARE = [
@@ -83,9 +92,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bookshop',
         'USER': 'root',
-        'PASSWORD': '13041807',
+        'PASSWORD': 'HuuAn1522001@',
         'HOST': 'localhost',
-        'PORT': '3307',
+        'PORT': '3306',
     }
 }
 
@@ -114,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Saigon'
 
 USE_I18N = True
 

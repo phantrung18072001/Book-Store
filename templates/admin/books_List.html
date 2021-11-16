@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base2.html" %}
 {% load static %}
 {% block title%} Danh sách các Sách {% endblock %}
 {% block extra_css %}
@@ -14,12 +14,6 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
@@ -63,30 +57,29 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table id="books" class="display expandable-table table-striped" style="width:100%">
+                        <table id="books" class="display expandable-table table-striped table-hover" style="width:100%">
                           <thead>
-                            <tr>
+                            <tr style="white-space: pre; text-align: center;">
                               <th>STT</th>
                               <th>Tên sách</th>
                               <th>Tác giả</th>
                               <th>Phân loại</th>
-                              <th>Giá</th>
                               <th>Nhà xuất bản</th>
                               <th>Quốc gia</th>
                               <th>Năm phát hành</th>
+                              <th>Giá</th>
                               <th>Số lượng</th>
                             </tr>
                           </thead>
                           <tbody>
                             {% for book in books %}  
-                                <tr>
-                                  <td>{{ forloop.counter }}</td>
-                                  {% for book_info in book.0 %}  
-                                    <td>{{ book_info }}</td>
-                                  {% endfor %} 
-                                  <td>{{ book.1 }}</td>
-                                </tr>
-                              {% endfor %} 
+                              <tr style="white-space: pre; text-align: center;">
+                                {% for info in book %}  
+                                  <td>{{ info }}</td>
+                                {% endfor %} 
+                              </tr>
+                            {% endfor %} 
+                          </tbody>
                       </table>
                     </div>
                   </div>
@@ -104,14 +97,10 @@
 
 {% block extra_js %}
   <!-- Plugin js for this page -->
-  <script src="{% static 'js/admin/vendors/datatables.net/jquery.dataTables.js' %} "></script>
-  <script src="{% static 'js/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
-  <script src="{% static 'js/admin/dataTables.select.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
 
   <!-- Custom js for this page-->
-  <script src="{% static 'js/admin/dashboard.js' %}"></script>
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
 {% endblock %}

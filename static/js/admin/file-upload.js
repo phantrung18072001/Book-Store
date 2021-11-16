@@ -23,6 +23,7 @@ FrontCover.addEventListener('change', function() {
     document.querySelector("#displayFrontCover").style.backgroundImage = `url(${uploaded_FrontCover})`;
   });
   FrontCover_reader.readAsDataURL(this.files[0]);
+  document.getElementById("FrontCover_Image").setAttribute("value", this.files[0])
 });
 
 BackCover.addEventListener('change', function() {
@@ -32,4 +33,5 @@ BackCover.addEventListener('change', function() {
     document.querySelector("#displayBackCover").style.backgroundImage = `url(${uploaded_BackCover})`;
   });
   BackCover_reader.readAsDataURL(this.files[0]);
+  document.getElementById("BackCover_Image").setAttribute("value", this.files[0])
 });

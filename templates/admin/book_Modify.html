@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base2.html" %}
 {% load static %}
 {% block title%} Cập nhật Sách {% endblock %}
 {% block extra_css %}
@@ -12,12 +12,6 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
@@ -37,7 +31,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+            <a class="nav-link" href="{% url 'adminPage:users_List' %}">
               <i class="ti-user menu-icon"></i>
               <span class="menu-title">Người dùng</span>
             </a>
@@ -53,128 +47,142 @@
       <!-- partial -->
       <div class="main-panel">        
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-4 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Bìa sách</h4>
-                  <p class="card-description">
-                    Ảnh của bìa sách
-                  </p>
-                  <div class="form-group">
-                    <label for="FrontCover">Bìa trước</label>
-                    <div class="form-group" id="displayFrontCover"></div>                    
-                    <input type="file" id="FrontCover" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                      <input type="text" class="form-control file-upload-info" disabled placeholder="Tải ảnh lên">
-                      <span class="input-group-append">
-                        <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
-                      </span>
+          <form class="form-sample" id="bookInfo" enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Bìa sách</h4>
+                      <div class="form-group">
+                        <label for="FrontCover">Bìa trước</label>
+                        <div class="form-group" id="displayFrontCover" style="background-image: url('/media/{{ book.3.0 }}'); width: auto;"></div>                    
+                        <input type="file" id="FrontCover" name="FrontCover_Image" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="text" id="FrontCover_Image" class="form-control file-upload-info" disabled value="{{ book.3.0 }}" required>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="BackCover">Bìa sau</label>
+                        <div class="form-group" id="displayBackCover" style="background-image: url('/media/{{ book.3.1 }}'); width: auto;"></div>                    
+                        <input type="file" id="BackCover" name="BackCover_Image" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="text" id="BackCover_Image" class="form-control file-upload-info" disabled value="{{ book.3.1 }}" required>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="BackCover">Bìa sau</label>
-                    <div class="form-group" id="displayBackCover"></div>                    
-                    <input type="file" id="BackCover" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                      <input type="text" class="form-control file-upload-info" disabled placeholder="Tải ảnh lên">
-                      <span class="input-group-append">
-                        <button class="file-upload-browse btn btn-primary" type="button">Tải lên</button>
-                      </span>
-                    </div>
+                </div>
+              </div>
+              <div class="col-8 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Cập nhật Sách</h4>
+                      <div class="row" style="display: none;">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookID">ID</label>
+                            <input type="text" class="form-control" id="bookID" name="id" value="{{book.0.0.0}}" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookTitle">Tên sách</label>
+                            <input type="text" class="form-control" id="bookTitle" name="title" value="{{book.0.0.1}}" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookAuthor">Tác giả</label>
+                            <input type="text" class="form-control" id="bookAuthor" name="auth" value="{{book.0.0.2}}" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookCategory">Phân loại</label>
+                            <select style="display: block;" class="form-control" id="bookCategory" name="category">
+                              {% for category in categories %}
+                                <option value="{{ category.0 }}" {% if category.1 == book.0.0.3 %} selected = "selected" {% endif %}>{{ category.1 }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookPrice">Giá</label>
+                            <input type="text" class="form-control" id="bookPrice" name="price" value="{{book.2.0}}" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookPublisher">Nhà xuất bản</label>
+                            <input type="text" class="form-control" id="bookPublisher" name="publisher" value="{{book.0.0.4}}" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookCountry">Quốc gia</label>
+                            {% load countries %}
+                            {% get_countries as countries %}
+                            <select style="display: block;" class="form-control" id="bookCountry" name="country">
+                              {% for country in countries %}
+                                <option value="{{ country.code }}" {% if country.code == book.0.0.5 %} selected = "selected" {% endif %}>{{ country.name }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookYearPublish">Năm phát hành</label>
+                            <input type="text" class="form-control" id="bookYearPublish" name="year_publish" value="{{book.0.0.6}}" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">  
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookQuantity">Số lượng</label>
+                            <input type="text" class="form-control" id="bookQuantity" name="quantity" value="{{book.1.0}}" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="bookDescription">Mô tả</label>
+                            <textarea class="form-control" id="bookDescription" name="description" rows="12" required>{{book.0.0.7}}</textarea>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-8 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Cập nhật Sách</h4>
-                  <form class="form-sample">
-                    <p class="card-description">
-                      Thông tin sách
-                    </p>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookTitle">Tên sách</label>
-                          <input type="text" class="form-control" id="bookTitle" placeholder="Tôi Thấy Hoa Vàng Trên Cỏ Xanh" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookAuthor">Tác giả</label>
-                          <input type="text" class="form-control" id="bookAuthor" placeholder="Nguyễn Nhật Ánh" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookCategory">Phân loại</label>
-                          <input type="text" class="form-control" id="bookCategory" placeholder="Văn học" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookPrice">Giá</label>
-                          <input type="text" class="form-control" id="bookPrice" placeholder="125.000đ" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookPublisher">Nhà xuất bản</label>
-                          <input type="text" class="form-control" id="bookPublisher" placeholder="NXB Trẻ" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookCountry">Quốc gia</label>
-                          <input type="text" class="form-control" id="bookCountry" placeholder="Vietnam" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookYearPublish">Năm phát hành</label>
-                          <input type="text" class="form-control" id="bookYearPublish" placeholder="2010" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">  
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookQuantity">Số lượng</label>
-                          <input type="text" class="form-control" id="bookQuantity" placeholder="100" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="bookDescription">Mô tả</label>
-                          <textarea class="form-control" id="bookDescription" rows="9"></textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="display: flex; justify-content: center; align-items: center;">
-                      <button type="submit" class="btn btn-primary mr-2">Thêm</button>
-                      <button type="button" class="btn btn-secondary" onclick="window.location.href=''">Hủy</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <button type="submit" class="btn btn-danger mr-2" onclick="deleteForm()">Xóa</button>
+              <button type="submit" class="btn btn-primary mr-2" onclick="submitForm()">Thêm</button>
+              <button type="button" class="btn btn-secondary mr-2" onclick="returnBooks_Update()">Hủy</button>
             </div>
-          </div>
+          </form>
         </div>
         <!-- content-wrapper ends -->
       </div>
@@ -188,6 +196,20 @@
   <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
   <!-- Custom js for this page-->
   <script src="{% static 'js/admin/file-upload.js' %}"></script>
-  <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
+  <script>
+    returnBooks_Update = function() {
+      window.location.href = "{% url 'adminPage:books_Update' %}";
+    }
+
+    submitForm = function() {
+      document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Update' %}");
+      document.getElementById("bookInfo").submit();
+    }
+
+    deleteForm = function() {
+      document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Delete' %}")
+      document.getElementById("bookInfo").submit();
+    }
+  </script>
 {% endblock %}

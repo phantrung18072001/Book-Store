@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base2.html" %}
 {% load static %}
 {% block title%} Danh sách các Sách {% endblock %}
 {% block extra_css %}
@@ -14,12 +14,6 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
@@ -56,76 +50,74 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Thông tin Đơn hàng</h4>
-                  <p class="card-description">
-                    Tất cả các đơn hàng đã nhận.
-                  </p>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>STT</th>
-                          <th>Username</th>
-                          <th>Họ và tên</th>
-                          <th>Địa chỉ</th>
-                          <th>Sách</th>
-                          <th>Giá</th>
-                          <th>Tình trạng</th>
-                          <th>Tình trạng</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>huuan152</td>
-                          <td>Nguyễn Hữu An</td>
-                          <td>123 Hồ Gươm</td>
-                          <td>Mắt biếc</td>
-                          <td>95.500đ</td>
-                          <td><label class="badge badge-danger">Chờ xử lý</label></td>
-                          <td><label class="badge badge-warning">Đang vận chuyển</label></td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>trungphan2001</td>
-                          <td>Phan Đức Trung</td>
-                          <td>789 Hồ Tây</td>
-                          <td>Mắt biếc</td>
-                          <td>95.500đ</td>
-                          <td><label class="badge badge-info">Đã hủy</label></td>
-                          <td><label class="badge badge-success">Hoàn thành</label></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title">Advanced Table</p>
+                  <p class="card-title">Thông tin Đơn hàng</p>
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
                         <table id="example" class="display expandable-table table-striped" style="width:100%">
                           <thead>
-                            <tr>
-                              <th>Quote#</th>
-                              <th>Product</th>
-                              <th>Business type</th>
-                              <th>Policy holder</th>
-                              <th>Premium</th>
-                              <th>Status</th>
-                              <th>Updated at</th>
-                              <th></th>
+                            <tr style="white-space: pre; text-align: center;">
+                              <th>STT</th>
+                              <th>Username</th>
+                              <th>Sách</th>
+                              <th>Giá</th>
+                              <th>Ngày đặt</th>
+                              <th>Ngày nhận</th>
+                              <th>Địa chỉ</th>
+                              <th>Trạng thái</th>
                             </tr>
                           </thead>
+                          <tbody>
+                            <script>
+                              var buttonID;
+                              var formID;
+                              var currentStatusID;
+                              var count = 0;
+                              var currentRow;
+                              var orderID;
+                              var status;
+                            </script>
+                            {% for order in orders_Info %}
+                            <form  id="formTarget" enctype="multipart/form-data" method="POST" action="{% url 'adminPage:statusChange' %}">  
+                              {% csrf_token %}
+                              <tr class="clickable-row" style="text-align: center;">
+                                {% for info in order %}
+                                  {% if forloop.counter != 9 %}
+                                    {% if forloop.counter != 1 %}
+                                    <td style="white-space: pre;">{{ info }}</td>
+                                    {% else %}
+                                    <input type='text' style="display: none;" name="orderID" value="{{ info }}"></input>
+                                    {% endif %}
+                                  {% elif forloop.counter %}
+                                    <td style="justify-self: center;">
+                                      <div class="dropdown">
+                                        <input id="currentStatus" type='text' style="display: none;" name="newStatus" value="{{ info.0 }}"></input>
+                                        <button class="btn btn-primary btn-sm dropdown-toggle dropdown-btn" type="button" id="dropdown_Button" name="statusChange" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ info.0 }}</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown_Button">
+                                          <a class="dropdown-item btn-item1" style="cursor: pointer;">{{ info.1 }}</a>
+                                          <a class="dropdown-item btn-item2" style="cursor: pointer;">{{ info.2 }}</a>
+                                          <a class="dropdown-item btn-item3" style="cursor: pointer;">{{ info.3 }}</a>
+                                        </div>
+                                      </div>
+                                      <script>
+                                        function uniqueButton() {
+                                          document.getElementById('dropdown_Button').id = 'dropdown_Button' + count.toString();
+                                          document.getElementById('formTarget').id = 'formTarget' + count.toString();
+                                          document.getElementById('currentStatus').id = 'currentStatus' + count.toString();
+                                          count++;
+                                        }
+                                        uniqueButton();
+                                      </script>
+                                    </td>
+                                  {% endif %}
+                                {% endfor %} 
+                              </tr>
+                            </form>
+                            {% endfor %} 
+                          </tbody>
                         </table>
                       </div>
                     </div>
@@ -144,13 +136,44 @@
 
 {% block extra_js %}
   <!-- Plugin js for this page -->
-  <script src="{% static 'js/admin/vendors/datatables.net/jquery.dataTables.js' %} "></script>
-  <script src="{% static 'js/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
-  <script src="{% static 'js/admin/dataTables.select.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
   <!-- Custom js for this page-->
-  <script src="{% static 'js/admin/dashboard.js' %}"></script>
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
-  <script src="{% static 'js/admin/select2.js' %}"></script>  
+  <script src="{% static 'js/admin/select2.js' %}"></script>
+  <script>
+    $(".dropdown-btn").on("click", function() {
+      buttonID = "#" + $(this).attr('id');
+      IDnumber = buttonID.substring(16, 17);
+      formID = "#formTarget" + IDnumber;
+      currentStatusID = "#currentStatus" + IDnumber;
+    });
+
+    $(".dropdown-menu a").on("click", function() {
+      let buttonContent = ["Chờ xử lý", "Đang vận chuyển", "Hoàn thành", "Đã hủy"];
+      $(buttonID).text($(this).text());
+      content = $(this).text();
+      $(currentStatusID).attr('value', content);
+      console.log(currentStatusID);
+      for (let i = 0; i < 4; i++) {
+        if (content == buttonContent[i]) {
+          buttonContent.splice(i, 1);
+          break;
+        }
+      }
+      $(buttonID + " + " + "div .btn-item1").text(buttonContent[0]);
+      $(buttonID + " + " + "div .btn-item2").text(buttonContent[1]);
+      $(buttonID + " + " + "div .btn-item3").text(buttonContent[2]);
+      $(formID).submit();
+    });
+
+    /* $('.clickable-row').on('click', function () {
+      currentRow=$(this).closest('tr');
+      orderID = parseInt(currentRow.find("td:eq(1)").text());
+      status = $(buttonID).text();
+      console.log(orderID);
+      console.log(status);
+      console.log(formID);
+    }); */
+  </script>  
 {% endblock %}

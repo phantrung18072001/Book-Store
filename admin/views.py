@@ -134,7 +134,7 @@ def books_Update(request):
 
 def orders_List(request):
     cursor1 = connection.cursor()
-    cursor1.execute("SELECT BSO.id, BAA.username, BSO.address, BSO.total, BSO.status, BSO.created_at, BSO.updated_at FROM bookshop.store_order BSO JOIN bookshop.accounts_account BAA ON BSO.user_id = BAA.id;")
+    cursor1.execute("SELECT BSO.id, BAA.username, BSO.address, BSO.total, BSO.status, BSO.created_at, BSO.updated_at FROM bookshop.store_order BSO JOIN bookshop.accounts_account BAA ON BSO.user_id = BAA.id ORDER BY BSO.created_at DESC;")
     orders_List = cursor1.fetchall()
     cursor2 = connection.cursor()
     cursor2.execute("SELECT BSO.order_id, BSB.title FROM bookshop.store_book BSB JOIN bookshop.store_orderitem BSO ON BSO.book_id = BSB.id")

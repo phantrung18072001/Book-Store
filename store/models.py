@@ -88,10 +88,10 @@ class CartItem(models.Model):
         ]
 
 STATUS_ORDER = (
-    ('Wait','Chờ xác nhận'),
-    ('Sending','Đang vận chuyển'),
-    ('Cancel','Đã hủy'),
-    ('Completed','Hoàn thành')
+    ('Chờ xử lý','Chờ xử lý'),
+    ('Đang vận chuyển','Đang vận chuyển'),
+    ('Đã hủy','Đã hủy'),
+    ('Hoàn thành','Hoàn thành')
 )
 
 class Order(models.Model):

@@ -37,17 +37,33 @@ class Book_Price(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    class Meta:
+        indexes = [
+           models.Index(fields=['book',]),
+        ]
 class Book_Image(models.Model):
     book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name='images')
     main_image = models.BooleanField(default=False)
     path = models.ImageField(default="book1.jpg")
+
+    class Meta:
+        db_table:"bookshop"
+        indexes = [
+           models.Index(fields=['book',]),
+        ]
 
 class Book_Inventory(models.Model):
     book = models.OneToOneField(Book,on_delete=models.CASCADE,related_name="inventories")
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
+    class Meta:
+        db_table:"bookshop"
+        indexes = [
+           models.Index(fields=['book',]),
+        ]
+
 class Cart(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     total = models.IntegerField(default=0)
@@ -55,13 +71,21 @@ class Cart(models.Model):
     def __str__(self): 
         return str(self.user) 
 
+    class Meta:
+        indexes = [
+           models.Index(fields=['user',]),
+        ]
 class CartItem(models.Model): 
     book = models.ForeignKey(Book, on_delete=models.CASCADE) 
     cart_session = models.ForeignKey(Cart, on_delete=models.CASCADE) 
     quantity = models.IntegerField() 
     def __str__(self): 
         return str(self.book)
-
+    class Meta:
+        indexes = [
+           models.Index(fields=['book',]),
+           models.Index(fields=['cart_session',]),
+        ]
 
 STATUS_ORDER = (
     ('Wait','Chờ xác nhận'),
@@ -79,8 +103,19 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
+    class Meta:
+        indexes = [
+           models.Index(fields=['user',]),
+        ]
+
 class OrderItem(models.Model):
     book = models.ForeignKey(Book,on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_item")
     quantity = models.IntegerField()
     price = models.IntegerField()
+
+    class Meta:
+        indexes = [
+           models.Index(fields=['book',]),
+           models.Index(fields=['order',]),
+        ]

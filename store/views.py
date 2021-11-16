@@ -23,14 +23,19 @@ def shelf(request):
     category = request.GET.get('category',"")
     cursor = connection.cursor()
     books = None
+    #search in user
     if info is not None and info.strip() != '':
         cursor.execute('call search_by_info("%s","%s")'%(info, choose))
-        books = cursor.fetchall()
+        books = cursor.fetchall()[::-1]
     elif category:
         cursor.execute('call search_by_category("%s")'%(category))
-        books = cursor.fetchall()
+        books = cursor.fetchall()[::-1]
     else:
         return redirect(request.META['HTTP_REFERER'])
+    
+    # search in admin
+    if request.is_ajax():
+        return JsonResponse({'status':"success", 'books':books})
     return render(request,'store/shelf.html',{'books':books, 'category':category, 'info':info})
 
 def bookPage(request,pk):
@@ -115,7 +120,7 @@ def order(request):
 
 def update_order(request,order_id):
     order = Order.objects.get(id=order_id)
-    order.status = "Cancel"
+    order.status = "Đã hủy"
     order.save()
     return redirect("store:infoShip")
 
@@ -125,4 +130,4 @@ def infoShip(request):
     return render(request,'store/infoShip.html',{'orders':orders})
 
 def dashboard(request):
-    return render(request,'admin/dashboard.html')
+    return redirect("adminPage:books_List")

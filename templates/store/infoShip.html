@@ -53,18 +53,10 @@
                         </td>
                         <td class="col-xl-3">{{order.address}}</td>
                         <td class="col-xl-2">
-                            {% if order.status == 'Wait'%}
-                            <span>Chờ xử lý</span>
-                            {% elif order.status == 'Sending'%}
-                            <span>Đang vận chuyển</span>
-                            {% elif order.status == 'Completed'%}
-                            <span>Hoàn thành</span>
-                            {% else %}
-                            <span>Đã hủy</span>
-                            {% endif %}
+                            <span>{{order.status}}</span>
                         </td>
                         <td class="col-xl-1">
-                            {% if order.status == 'Wait'%}
+                            {% if order.status == 'Chờ xử lý'%}
                             <a href="{% url 'store:update_order' order.id %}" class='cancel'>Hủy</a>
                             {% endif %}
                         </td>

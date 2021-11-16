@@ -143,7 +143,7 @@
     font-weight: 500;
   }
   
-  .shelf .book-sold {
+  .shelf .book-sold, .shelf .price {
     padding-top: 3px;
     font-size: 14px;
   }

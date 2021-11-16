@@ -86,7 +86,7 @@
                               <tr class="clickable-row" style="text-align: center;">
                                 {% for info in order %}
                                   {% if forloop.counter != 9 %}
-                                    {% if forloop.counter != 1 %}
+                                    {% if forloop.counter != 2 %}
                                     <td style="white-space: pre;">{{ info }}</td>
                                     {% else %}
                                     <input type='text' style="display: none;" name="orderID" value="{{ info }}"></input>

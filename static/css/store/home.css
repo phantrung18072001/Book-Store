@@ -3,6 +3,14 @@
     background: #fff;
 }
 
+.trending {
+  display: none;
+}
+
+.trending.active {
+  display: flex;
+}
+
 .content-heading {
     display: flex;
     align-items: center;
@@ -36,6 +44,7 @@
     font-size: 14px;
     border-radius: 5px;
     outline: none;
+    min-width: 180px;
 }
 
 .type .type-btn:hover {

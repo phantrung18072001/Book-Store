@@ -15,7 +15,17 @@ def home(request):
         books = Book.objects.filter(category=category[0],deleted_at=None).prefetch_related('inventories','images').order_by('-created_at')[:6:1] #có 9 câu truy vấn
         if books:
             context[category[0]] = books
-    return render(request,'store/home.html', {'context':context})
+    #day
+    cursor = connection.cursor()
+    cursor.execute('call bookTrend(7)')
+    #month
+    bookOfDay = cursor.fetchall();
+    cursor.execute('call bookTrend(30)')
+    bookOfMonth = cursor.fetchall();
+    #new
+    cursor.execute('call newBook()')
+    newBook = cursor.fetchall();
+    return render(request,'store/home.html', {'context':context, 'bookOfDay':bookOfDay, 'bookOfMonth':bookOfMonth, 'newBook':newBook})
 
 def shelf(request):
     info = request.GET.get('info',"")

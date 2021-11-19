@@ -13,6 +13,12 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
               <span class="menu-title">Sách</span>
@@ -179,7 +185,7 @@
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
               <button type="submit" class="btn btn-danger mr-2" onclick="deleteForm()">Xóa</button>
-              <button type="submit" class="btn btn-primary mr-2" onclick="submitForm()">Thêm</button>
+              <button type="submit" class="btn btn-primary mr-2" onclick="submitForm()">Sửa</button>
               <button type="button" class="btn btn-secondary mr-2" onclick="returnBooks_Update()">Hủy</button>
             </div>
           </form>
@@ -205,11 +211,13 @@
     submitForm = function() {
       document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Update' %}");
       document.getElementById("bookInfo").submit();
+      alert("{% if messages %}{% for message in messages %}{{ message }}\n{% endfor %}{% endif %}");
     }
 
     deleteForm = function() {
       document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Delete' %}")
       document.getElementById("bookInfo").submit();
+      alert("{% if messages %}{% for message in messages %}{{ message }}\n{% endfor %}{% endif %}");
     }
   </script>
 {% endblock %}

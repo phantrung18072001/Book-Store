@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row container-scroller" style="background: #fff;">
-  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-    <a class="navbar-brand brand-logo mr-5" href="{% url 'adminPage:books_List' %}"><img src="{% static 'img/logo_shop.jpg' %}" class="mr-2" alt="logo"/></a>
+  <div class="text-center navbar-brand-wrapper d-flex">
+    <a class="brand-logo" href="{% url 'adminPage:dashboard' %}"><img src="{% static 'img/logo_shop.jpg' %}" id="logo"/></a>
   </div>
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
     <a href="{% url 'store:home' %}" class="navbar-brand brand-logo ml-5" style="font-size:16px;">Trở về trang chủ</a>

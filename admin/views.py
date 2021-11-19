@@ -1,10 +1,30 @@
 from django.shortcuts import redirect, render
 from django.db import connection
+from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
-from store.models import Book, Book_Image, Book_Inventory, Book_Price, Account, Order, OrderItem
+from store.models import Book, Book_Image, Book_Inventory, Book_Price, Account, Order
 from store.views import order
 # Create your views here.
+
+def dashboard(request):
+    cursor1 = connection.cursor()
+    cursor1.execute("SELECT * FROM total_books;")
+    total_books = cursor1.fetchall()
+    cursor2 = connection.cursor()
+    cursor2.execute("SELECT * FROM total_users;")
+    total_users = cursor2.fetchall()
+    cursor3 = connection.cursor()
+    cursor3.execute("SELECT * FROM total_orders;")
+    total_orders = cursor3.fetchall()
+    cursor4 = connection.cursor()
+    cursor4.execute("SELECT * FROM total_revenue_by_months;")
+    total_revenue_by_months = cursor4.fetchall()
+    cursor5 = connection.cursor()
+    cursor5.execute("SELECT * FROM bestsellers;")
+    bestsellers = cursor5.fetchall()
+    return render(request,'admin/dashboard.html', {'total_books': total_books, 'total_users': total_users, 'total_orders': total_orders, 'total_revenue_by_months': total_revenue_by_months, 'bestsellers': bestsellers})
+
 def statusChange(request):
     if request.user.is_admin:
         if request.method == 'POST':
@@ -46,7 +66,8 @@ def book_Update(request):
                     uploaded_BackCover_image = request.FILES.get('BackCover_Image')
                     newBook_BackCover_Image.path = uploaded_BackCover_image.name
                     fs.save(uploaded_BackCover_image.name, uploaded_BackCover_image)
-                    newBook_BackCover_Image.save()
+                    newBook_BackCover_Image.save()         
+            messages.info(request, 'Sửa sách thành công!')
         return redirect('adminPage:books_Update')
     return redirect('store:home')
 
@@ -56,6 +77,7 @@ def book_Delete(request):
             book = Book.objects.get(id=request.POST.get('id'))
             book.deleted_at = timezone.localtime(timezone.now())
             book.save()
+            messages.info(request, 'Xóa sách thành công!')
         return redirect('adminPage:books_Update')
     return redirect('store:home')
 
@@ -110,7 +132,12 @@ def book_Add(request):
                 fs.save(uploaded_BackCover_image.name, uploaded_BackCover_image)
                 newBook_FrontCover_Image.save()
                 newBook_BackCover_Image.save()
-        return render(request,'admin/book_Add.html')
+                messages.success(request, 'Thêm sách thành công!')
+            else:
+                messages.error(request, 'Thêm sách thất bại! Bạn phải điền đầy đủ thông tin!')
+            return render(request,'admin/book_Add.html')
+        else:
+            return render(request,'admin/book_Add.html')
     return redirect('store:home')    
 
 def books_List(request):

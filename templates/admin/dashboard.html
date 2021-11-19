@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base2.html" %}
 {% load static %}
 {% block title%} Dashboard {% endblock %}
 {% block extra_css %}
@@ -57,7 +57,7 @@
             <div class="col-md-6 grid-margin stretch-card">
               <div class="card tale-bg">
                 <div class="card-people mt-auto">
-                  <img src="{% static 'img/admin/dashboard/people.png' %}" alt="people">
+                  <img src="{% static 'img/admin/people.png' %}" alt="people">
                   <div class="weather-info">
                     <div class="d-flex">
                       <div>
@@ -77,9 +77,8 @@
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-tale">
                     <div class="card-body">
-                      <p class="mb-4">Tổng số sách</p>
-                      <p class="fs-30 mb-2">4006</p>
-                      <p>10.00% (30 ngày)</p>
+                      <p class="mb-4">Tổng số sách trong kho</p>
+                      <p class="fs-30 mb-3">{{ total_books.0.0 }}</p>
                     </div>
                   </div>
                 </div>
@@ -87,8 +86,7 @@
                   <div class="card card-dark-blue">
                     <div class="card-body">
                       <p class="mb-4">Tổng số người dùng</p>
-                      <p class="fs-30 mb-2">61344</p>
-                      <p>22.00% (30 ngày)</p>
+                      <p class="fs-30 mb-3">{{ total_users.0.0 }}</p>
                     </div>
                   </div>
                 </div>
@@ -98,8 +96,7 @@
                   <div class="card card-light-blue">
                     <div class="card-body">
                       <p class="mb-4">Tổng số đơn theo ngày</p>
-                      <p class="fs-30 mb-2">34040</p>
-                      <p>2.00% (30 ngày)</p>
+                      <p class="fs-30 mb-3">{{ total_orders.0.0 }}</p>
                     </div>
                   </div>
                 </div>
@@ -107,8 +104,7 @@
                   <div class="card card-light-danger">
                     <div class="card-body">
                       <p class="mb-4">Tổng số đơn theo tháng</p>
-                      <p class="fs-30 mb-2">47033</p>
-                      <p>0.22% (30 ngày)</p>
+                      <p class="fs-30 mb-3">{{ total_orders.0.1 }}</p>
                     </div>
                   </div>
                 </div>
@@ -121,6 +117,16 @@
                 <div class="card-body">
                   <h4 class="card-title">Doanh thu theo tháng</h4>
                   <canvas id="revenueByMonth"></canvas>
+                  <div id="month1" style="display: none;">{{ total_revenue_by_months.0.0 }}</div>
+                  <div id="month2" style="display: none;">{{ total_revenue_by_months.1.0 }}</div>
+                  <div id="month3" style="display: none;">{{ total_revenue_by_months.2.0 }}</div>
+                  <div id="month4" style="display: none;">{{ total_revenue_by_months.3.0 }}</div>
+                  <div id="month5" style="display: none;">{{ total_revenue_by_months.4.0 }}</div>
+                  <div id="revenueByMonth1" style="display: none;">{{ total_revenue_by_months.0.1 }}</div>
+                  <div id="revenueByMonth2" style="display: none;">{{ total_revenue_by_months.1.1 }}</div>
+                  <div id="revenueByMonth3" style="display: none;">{{ total_revenue_by_months.2.1 }}</div>
+                  <div id="revenueByMonth4" style="display: none;">{{ total_revenue_by_months.3.1 }}</div>
+                  <div id="revenueByMonth5" style="display: none;">{{ total_revenue_by_months.4.1 }}</div>
                 </div>
               </div>
             </div>
@@ -129,6 +135,14 @@
                 <div class="card-body">
                   <h4 class="card-title">Sách bán chạy</h4>
                   <canvas id="bestsellers"></canvas>
+                  <div id="Bestsellers1" style="display: none;">{{ bestsellers.0.0 }}</div>
+                  <div id="Bestsellers2" style="display: none;">{{ bestsellers.1.0 }}</div>
+                  <div id="Bestsellers3" style="display: none;">{{ bestsellers.2.0 }}</div>
+                  <div id="Bestsellers4" style="display: none;">Khác</div>
+                  <div id="Bestsellers1_quantity" style="display: none;">{{ bestsellers.0.1 }}</div>
+                  <div id="Bestsellers2_quantity" style="display: none;">{{ bestsellers.1.1 }}</div>
+                  <div id="Bestsellers3_quantity" style="display: none;">{{ bestsellers.2.1 }}</div>
+                  <div id="total_books_sold" style="display: none;">{{ total_books.0.1 }}</div>
                 </div>
               </div>
             </div>
@@ -141,12 +155,11 @@
 {% endblock %}
 
 {% block extra_js %}
-  <!-- Plugin js for this page -->
   <script src="{% static 'js/admin/vendors/chart.js/Chart.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/datatables.net/jquery.dataTables.js' %}"></script>
   <script src="{% static 'js/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
   <script src="{% static 'js/admin/dataTables.select.min.js' %}"></script>
-  <!-- Custom js for this page-->
+  <script src="{% static 'js/admin/dashboard.js' %}"></script>
   <script src="{% static 'js/admin/Chart.roundedBarCharts.js' %}"></script>
   <script src="{% static 'js/admin/chart.js' %}"></script>
 {% endblock %}

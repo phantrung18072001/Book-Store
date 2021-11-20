@@ -1,9 +1,29 @@
 $(document).ready(function() {
-    form = $(".form-search-book");
+    var form = $(".form-search-book");
+    var return_first;
+    function callback(response) {
+        return_first = response;
+        books = return_first.books;
+        html = "";
+        count = 0;
+        for (let book of books) {
+            count += 1;
+            html += "<tr class='clickable-row' style='white-space: pre; text-align: center;'>";
+            html += "<td>" + count + "</td>";
+            html += "<td style='display: none;'>" + book[0] + "</td>";
+            for (let i = 1; i < book.length-1; i++) {
+                html += "<td>" + book[i] + "</td>";
+            }
+            html += "</tr>"
+        }
+        $("#books tbody").html(html);
+    }
+
+
+
     form.on("submit", function(){
         var info = $("input[name='info']")[0].value;
         var choose = $("select[name='choose']").find(":selected").val();
-        var token = $('input[name="csrfmiddlewaretoken"]').val();
         if (info.trim() == "") {
             location.reload(true);
         } else {
@@ -13,27 +33,14 @@ $(document).ready(function() {
                 data : {
                     'info': info,
                     'choose': choose,
-                    'csrfmiddlewaretoken': token,
                 },
                 dataType : 'json',
                 success : function(response) {
-                    var books = response.books;
-                    html = "";
-                    count = 0;
-                    for (let book of books) {
-                        count += 1;
-                        html += "<tr style='white-space: pre; text-align: center;'>";
-                        html += "<td>" + count + "</td>";
-                        for (let i = 1; i < book.length-1; i++) {
-                            html += "<td>" + book[i] + "</td>";
-                        }
-                        html += "</tr>"
-                    }
-                    $("#books tbody").html(html);
+                    console.log(response);
+                    callback(response);                    
                 }
-            })
+            });
         }
         return false;
-    })
-    
+    });
 })

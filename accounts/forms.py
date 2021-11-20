@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from accounts.models import Account
 
 class RegistrationForm(UserCreationForm):
@@ -28,5 +28,3 @@ class AccountUpdateForm(forms.ModelForm):
             except Account.DoesNotExist:
                 return email
             raise forms.ValidationError('Email "%s" is already in use' %account.email)
-
-        

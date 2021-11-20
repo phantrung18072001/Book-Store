@@ -1,0 +1,46 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đổi mật khẩu</title>
+    <link rel="stylesheet" href="{% static 'css/user/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/store/base.css' %}" type="text/css">
+</head>
+
+<body>
+    <div class="login" style="background-image: url('{% static 'img/banner.jpg' %}')">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <a type="button" class="toggle-btn">Đổi mật khẩu</button>
+                <a type="button" href="{% url 'store:home' %}" class="toggle-btn profile-btn">Quay lại</a>
+            </div>
+            <form id="login" class="input-group" method="POST" action="/changePass">
+                {% csrf_token %}
+                <div class="input-group-item">
+                    <input type="password" class="input-field" placeholder=" " name="old_password"
+                        value="" maxlength="24"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                    <label class="label-field">Mật khẩu hiện tại</label>
+                </div>
+                <div class="alert alert-danger">{{Error_check1}}</div>
+                <div class="input-group-item">
+                    <input type="password" class="input-field" placeholder=" " name="new_password1" maxlength="24"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                    <label class="label-field">Mật khẩu mới</label>
+                </div>
+                <div class="alert alert-danger">{{Error_check2}}</div>
+                <div class="input-group-item">
+                    <input type="password" class="input-field" placeholder=" " name="new_password2"
+                        maxlength="24"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                    <label class="label-field">Nhập lại mật khẩu</label>
+                </div>
+                <div class="alert alert-danger">{{Error_check3}}</div>
+                <button type="submit" class="submit-btn">Đổi mật khẩu</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

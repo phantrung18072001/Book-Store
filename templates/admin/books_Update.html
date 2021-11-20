@@ -141,16 +141,4 @@
   <script src="{% static 'js/admin/search_book.js' %}"></script>
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
-  <script>
-    $(document).ready(function() {
-      $('.clickable-row').on('click', function () {
-        var currentRow=$(this).closest('tr');
-        var book_id = parseInt(currentRow.find("td:eq(1)").text());
-        console.log(book_id);
-        document.getElementById("bookUpdate").setAttribute("value", book_id);
-        document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Modify' %}");
-        document.getElementById("bookInfo").submit();
-      });
-    });
-  </script>
 {% endblock %}

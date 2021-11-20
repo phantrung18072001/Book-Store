@@ -17,9 +17,8 @@ $(document).ready(function() {
             html += "</tr>"
         }
         $("#books tbody").html(html);
+        load();
     }
-
-
 
     form.on("submit", function(){
         var info = $("input[name='info']")[0].value;
@@ -43,4 +42,16 @@ $(document).ready(function() {
         }
         return false;
     });
+
+    function load(){
+        $('.clickable-row').on('click', function () {
+            var currentRow=$(this).closest('tr');
+            var book_id = parseInt(currentRow.find("td:eq(1)").text());
+            console.log(book_id);
+            document.getElementById("bookUpdate").setAttribute("value", book_id);
+            document.getElementById("bookInfo").setAttribute("action", "/book_Modify");
+            document.getElementById("bookInfo").submit();
+        })
+    }
+    load();
 })

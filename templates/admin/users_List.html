@@ -15,6 +15,12 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
               <span class="menu-title">Sách</span>
@@ -92,7 +98,6 @@
 
 {% block extra_js %}
   <!-- Plugin js for this page -->
-  <script src="{% static 'js/admin/dataTables.select.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
   <!-- Custom js for this page-->

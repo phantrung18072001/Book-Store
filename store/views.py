@@ -12,7 +12,7 @@ def home(request):
     context = {}
     categories = CATEGORY_CHOICES
     for category in categories:
-        books = Book.objects.filter(category=category[0]).prefetch_related('inventories','images').order_by('-created_at')[:6:1] #có 9 câu truy vấn
+        books = Book.objects.filter(category=category[0],deleted_at=None).prefetch_related('inventories','images').order_by('-created_at')[:6:1] #có 9 câu truy vấn
         if books:
             context[category[0]] = books
     return render(request,'store/home.html', {'context':context})
@@ -23,14 +23,18 @@ def shelf(request):
     category = request.GET.get('category',"")
     cursor = connection.cursor()
     books = None
+    #search in user
     if info is not None and info.strip() != '':
         cursor.execute('call search_by_info("%s","%s")'%(info, choose))
-        books = cursor.fetchall()
+        books = cursor.fetchall()[::-1]
     elif category:
         cursor.execute('call search_by_category("%s")'%(category))
-        books = cursor.fetchall()
+        books = cursor.fetchall()[::-1]
     else:
         return redirect(request.META['HTTP_REFERER'])
+    # search in admin
+    if request.is_ajax():
+        return JsonResponse({'status':"success", 'books':books})
     return render(request,'store/shelf.html',{'books':books, 'category':category, 'info':info})
 
 def bookPage(request,pk):
@@ -115,7 +119,7 @@ def order(request):
 
 def update_order(request,order_id):
     order = Order.objects.get(id=order_id)
-    order.status = "Cancel"
+    order.status = "Đã hủy"
     order.save()
     return redirect("store:infoShip")
 
@@ -123,6 +127,3 @@ def infoShip(request):
     user = request.user
     orders = Order.objects.filter(user=user).order_by('-created_at')
     return render(request,'store/infoShip.html',{'orders':orders})
-
-def dashboard(request):
-    return render(request,'admin/dashboard.html')

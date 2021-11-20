@@ -28,6 +28,12 @@ class Book(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
+
+    class Meta:
+        indexes = [
+           models.Index(fields=['category',]),
+        ]
+
     def __str__(self):
         return self.title
 
@@ -88,10 +94,10 @@ class CartItem(models.Model):
         ]
 
 STATUS_ORDER = (
-    ('Wait','Chờ xác nhận'),
-    ('Sending','Đang vận chuyển'),
-    ('Cancel','Đã hủy'),
-    ('Completed','Hoàn thành')
+    ('Chờ xử lý','Chờ xử lý'),
+    ('Đang vận chuyển','Đang vận chuyển'),
+    ('Đã hủy','Đã hủy'),
+    ('Hoàn thành','Hoàn thành')
 )
 
 class Order(models.Model):

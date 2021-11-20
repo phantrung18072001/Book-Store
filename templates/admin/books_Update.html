@@ -15,6 +15,12 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
               <span class="menu-title">Sách</span>
@@ -49,15 +55,34 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <form class="form-sample" id="bookInfo" enctype="multipart/form-data" method="POST" action="">
-            {% csrf_token %}
-            <input style="display: none;" value="" id="bookUpdate" name="bookID">
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title">Cập nhật Thông tin sách</p>
-                  <div class="row">
+                    <p class="card-title">Cập nhật Thông tin sách</p>
+                    <div class="nav-search">
+                    <form action="" class="form-search-book" autocomplete="off">
+                        <input type="text" name="info" class="search-input" placeholder="Nhập vào để tìm kiếm">
+                        <div class="select-wrapper">
+                            <select name="choose" class="select-filter-book"
+                                style="background-image: url()">
+                                <option value="title" selected>Tìm theo tên sách</option>
+                                <option value="auth">Tìm theo tên tác giả</option>
+                            </select>
+                        </div>
+                        <button class="btn-search">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" stroke-width="6" fill="currentColor"
+                                class="icon-search bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                    </form>
+                    </div>
+                    <form class="form-sample" id="bookInfo" enctype="multipart/form-data" method="POST" action="">
+                        {% csrf_token %}
+                        <input style="display: none;" value="" id="bookUpdate" name="bookID">
+                    <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
                         <table id="books" class="display expandable-table table-striped table-hover" style="width:100%; cursor: pointer;">
@@ -113,6 +138,7 @@
   <script src="{% static 'js/admin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
   <script src="{% static 'js/admin/vendors/select2/select2.min.js' %}"></script>
   <!-- Custom js for this page-->
+  <script src="{% static 'js/admin/search_book.js' %}"></script>
   <script src="{% static 'js/admin/typeahead.js' %}"></script>
   <script src="{% static 'js/admin/select2.js' %}"></script>
   <script>

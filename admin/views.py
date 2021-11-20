@@ -148,7 +148,7 @@ def books_List(request):
             book = []
             book.append(x + 1)
             book.extend(books_List[x])
-            book.append(books_List_Price[x])
+            book.append("{:,} VNĐ".format(books_List_Price[x]).replace(',','.'))
             book.append(books_List_Inventory[x])
             books.append(book)
         return render(request,'admin/books_List.html',{'books': books})    
@@ -164,7 +164,7 @@ def books_Update(request):
             book = []
             book.append(x + 1)
             book.extend(books_List[x])
-            book.append(books_List_Price[x])
+            book.append("{:,} VNĐ".format(books_List_Price[x]).replace(',','.'))
             book.append(books_List_Inventory[x])
             books.append(book)
         return render(request,'admin/books_Update.html',{'books': books})    

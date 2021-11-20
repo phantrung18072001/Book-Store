@@ -1,3 +1,4 @@
+{% load humanize %}
 <div class="cart-interface">
     <div class="your-cart">
         <h2 class="cart-heading">Giỏ Hàng</h2>
@@ -57,7 +58,7 @@
                             </div>
                         </td>
                         <td class="col-xl-2 col-lg-2">
-                            <span class="cart-book-price">{{cart_item.book.book_price.price}} đồng</span>
+                            <span class="cart-book-price">{{cart_item.book.book_price.price|intcomma}} đồng</span>
                         </td>
                         <td class="col-xl-1 col-lg-1">
                             <button class="btn-remove">Xóa</button>
@@ -66,7 +67,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <h4 class="cart-sum">Giá trị đơn hàng: <span id="total">{{total}}</span> đồng</h4>
+            <h4 class="cart-sum">Giá trị đơn hàng: <span id="total">{{total|intcomma}}</span> đồng</h4>
         </div>
         <form class="form" action="/order" method="POST" onsubmit="return false;">
             {% csrf_token %}

@@ -1,5 +1,5 @@
 {% extends "./base.html" %}
-
+{% load humanize %}
 {% load static %}
 {% block title%} Home {% endblock %}
 {% block extra_css %}
@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                     <td>Giá sách</td>
-                                    <td>{{book.book_price.price}} đồng</td>
+                                    <td>{{book.book_price.price|intcomma}} đồng</td>
                                 </tr>
                             </tbody>
                         </table>

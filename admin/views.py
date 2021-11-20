@@ -67,7 +67,6 @@ def book_Update(request):
                     newBook_BackCover_Image.path = uploaded_BackCover_image.name
                     fs.save(uploaded_BackCover_image.name, uploaded_BackCover_image)
                     newBook_BackCover_Image.save()         
-            messages.info(request, 'Sửa sách thành công!')
         return redirect('adminPage:books_Update')
     return redirect('store:home')
 
@@ -77,7 +76,6 @@ def book_Delete(request):
             book = Book.objects.get(id=request.POST.get('id'))
             book.deleted_at = timezone.localtime(timezone.now())
             book.save()
-            messages.info(request, 'Xóa sách thành công!')
         return redirect('adminPage:books_Update')
     return redirect('store:home')
 

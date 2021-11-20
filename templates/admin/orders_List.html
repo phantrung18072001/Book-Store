@@ -171,15 +171,8 @@
       $(buttonID + " + " + "div .btn-item2").text(buttonContent[1]);
       $(buttonID + " + " + "div .btn-item3").text(buttonContent[2]);
       $(formID).submit();
+      alert("Cập nhật trạng thái đơn hàng thành công!");
     });
 
-    /* $('.clickable-row').on('click', function () {
-      currentRow=$(this).closest('tr');
-      orderID = parseInt(currentRow.find("td:eq(1)").text());
-      status = $(buttonID).text();
-      console.log(orderID);
-      console.log(status);
-      console.log(formID);
-    }); */
   </script>  
 {% endblock %}

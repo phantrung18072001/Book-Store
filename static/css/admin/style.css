@@ -28654,7 +28654,6 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .nav.sub-menu .nav-item::before {
-  content: '';
   width: 5px;
   height: 5px;
   position: absolute;

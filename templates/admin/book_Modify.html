@@ -211,13 +211,13 @@
     submitForm = function() {
       document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Update' %}");
       document.getElementById("bookInfo").submit();
-      alert("{% if messages %}{% for message in messages %}{{ message }}\n{% endfor %}{% endif %}");
+      alert("Sửa sách thành công!");
     }
 
     deleteForm = function() {
       document.getElementById("bookInfo").setAttribute("action", "{% url 'adminPage:book_Delete' %}")
       document.getElementById("bookInfo").submit();
-      alert("{% if messages %}{% for message in messages %}{{ message }}\n{% endfor %}{% endif %}");
+      alert("Xóa sách thành công!");
     }
   </script>
 {% endblock %}

@@ -43,6 +43,7 @@ def logout(request):
     auth.logout(request)
     return redirect('accounts:login')
 
+@login_required(login_url="login")
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('accounts:login')
@@ -54,3 +55,27 @@ def profile(request):
         form = AccountUpdateForm()
         return render(request,'user/profile.html',{'form':form})
     return render(request,'user/profile.html')
+
+def changePass(request):
+    context = {}
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password1 = request.POST.get('new_password1')
+        new_password2 = request.POST.get('new_password2')
+        user = Account.objects.get(id=request.user.id)
+        check = user.check_password(old_password)
+        if check:
+            if new_password1 != new_password2:
+                context["Error_check3"] = "* Mật khẩu không trùng khớp"
+            else:
+                if len(new_password1) < 8:
+                    context["Error_check2"] = "* Mật khẩu phải có ít nhất 8 ký tự"
+                else:
+                    user.set_password(new_password1)
+                    user.save()
+                    auth.authenticate(user=user.username, password=new_password1)
+                    auth.login(request, user)
+                    return redirect('store:home')
+        else:
+            context["Error_check1"] = "* Nhập sai mật khẩu"
+    return render(request,'user/change_pass.html', context);

@@ -94,13 +94,12 @@
                                         <h4>Ngày Sinh </h4>
                                     </label>
                                     <input type="date" class="form-control" name="birth" autocomplete="off"
-                                        value='{{user.birth|date:"d-m-Y"}}' min="1900-01-01"
-                                        max="2009-12-31">
+                                        value="{{user.birth|date:'Y-m-d'}}">
                                 </div>
                                 <div class="alert alert-danger"></div>
                             </div>
                             <div class="btn-act">
-                                <a href=""
+                                <a href="{% url 'accounts:changePass' %}"
                                     class="change-password-heading section-heading">Đổi mật khẩu</a>
                                 <button class="btn-pro" type="submit">
                                     Lưu thông tin

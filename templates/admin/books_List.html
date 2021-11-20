@@ -1,5 +1,6 @@
 {% extends "./base2.html" %}
 {% load static %}
+{% load humanize %}
 {% block title%} Danh sách các Sách {% endblock %}
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'js/admin/dataTables.bootstrap4.css' %}">
@@ -82,16 +83,14 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table id="books" class="display expandable-table table-striped table-hover" style="width:100%">
+                        <table id="" class="display expandable-table table-striped table-hover" style="width:100%">
                           <thead>
                             <tr style="white-space: pre; text-align: center;">
                               <th>STT</th>
                               <th>Tên sách</th>
                               <th>Tác giả</th>
                               <th>Phân loại</th>
-                              <th>Nhà xuất bản</th>
-                              <th>Quốc gia</th>
-                              <th>Năm phát hành</th>
+                              <th>Năm xuất bản</th>
                               <th>Giá</th>
                               <th>Số lượng</th>
                             </tr>
@@ -99,9 +98,13 @@
                           <tbody>
                             {% for book in books %}  
                               <tr style="white-space: pre; text-align: center;">
-                                {% for info in book %}  
-                                  <td>{{ info }}</td>
-                                {% endfor %} 
+                                  <td>{{ book.0 }}</td>
+                                  <td>{{ book.1 }}</td>
+                                  <td>{{ book.2 }}</td>
+                                  <td>{{ book.3 }}</td>
+                                  <td>{{ book.6 }}</td>
+                                  <td>{{ book.7|intcomma }} đồng</td>
+                                  <td>{{ book.8 }}</td>
                               </tr>
                             {% endfor %} 
                           </tbody>

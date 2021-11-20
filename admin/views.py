@@ -176,14 +176,14 @@ def orders_List(request):
         cursor1.execute("SELECT BSO.id, BAA.username, BSO.address, BSO.total, BSO.status, BSO.created_at, BSO.updated_at FROM bookshop.store_order BSO JOIN bookshop.accounts_account BAA ON BSO.user_id = BAA.id ORDER BY BSO.created_at DESC;")
         orders_List = cursor1.fetchall()
         cursor2 = connection.cursor()
-        cursor2.execute("SELECT BSO.order_id, BSB.title FROM bookshop.store_book BSB JOIN bookshop.store_orderitem BSO ON BSO.book_id = BSB.id")
+        cursor2.execute("SELECT BSO.order_id, BSB.title, BSO.quantity FROM bookshop.store_book BSB JOIN bookshop.store_orderitem BSO ON BSO.book_id = BSB.id")
         orders_List_Books = cursor2.fetchall()
         orders_Books = []
         for x in range(len(orders_List)):
             order = ""
             for y in range(len(orders_List_Books)):
                 if orders_List[x][0] == orders_List_Books[y][0]:
-                    order = order  + orders_List_Books[y][1] + "\n"
+                    order = order  + orders_List_Books[y][1] + " x" + str(orders_List_Books[y][2]) + "\n"
                 elif orders_List[x][0] < orders_List_Books[y][0]:
                     break
             orders_Books.append(order)
@@ -194,7 +194,7 @@ def orders_List(request):
             order_Info.append(orders_List[x][0])
             order_Info.append(orders_List[x][1])
             order_Info.append(orders_Books[x])
-            order_Info.append(orders_List[x][3])
+            order_Info.append("{:,} VNĐ".format(orders_List[x][3]).replace(',','.'))
             order_Info.append(orders_List[x][5])
             if orders_List[x][4] != "Hoàn thành":
                 order_Info.append("Chưa rõ")

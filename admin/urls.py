@@ -5,6 +5,7 @@ app_name = 'admin'
 
 urlpatterns = [
     path('book_Modify',views.book_Modify,name='book_Modify'),
+    path('dashboard',views.dashboard,name='dashboard'),
     path('statusChange',views.statusChange,name='statusChange'),
     path('book_Add',views.book_Add,name='book_Add'),
     path('books_List',views.books_List,name='books_List'),

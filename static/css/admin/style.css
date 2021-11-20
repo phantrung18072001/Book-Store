@@ -28654,7 +28654,6 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .nav.sub-menu .nav-item::before {
-  content: '';
   width: 5px;
   height: 5px;
   position: absolute;
@@ -30696,4 +30695,8 @@ div.tagsinput span.tag a {
   fill: #fff;
 }
 
-/*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
+#logo {
+  max-height: 100%;
+  max-width: 100%;
+  margin-left: 2.5rem;
+}

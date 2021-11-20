@@ -43,6 +43,7 @@ $(document).ready(function() {
 
     let listImg = $('.list-img');
     let mainImg = $('.book-main-img img');
+
     function load(cur) {
         listImg.removeClass('active');
         cur.addClass('active');
@@ -54,6 +55,7 @@ $(document).ready(function() {
     listImg.each(function(index) {
         $(this).click(function() {
             load($(this));
+            console.log($(this))
         })
     })
 

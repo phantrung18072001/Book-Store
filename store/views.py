@@ -137,6 +137,3 @@ def infoShip(request):
     user = request.user
     orders = Order.objects.filter(user=user).order_by('-created_at')
     return render(request,'store/infoShip.html',{'orders':orders})
-
-def dashboard(request):
-    return redirect("adminPage:books_List")

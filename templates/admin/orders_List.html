@@ -15,6 +15,12 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminPage:dashboard' %}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#books" aria-expanded="false" aria-controls="books">
               <i class="icon-book menu-icon"></i>
               <span class="menu-title">Sách</span>
@@ -165,15 +171,8 @@
       $(buttonID + " + " + "div .btn-item2").text(buttonContent[1]);
       $(buttonID + " + " + "div .btn-item3").text(buttonContent[2]);
       $(formID).submit();
+      alert("Cập nhật trạng thái đơn hàng thành công!");
     });
 
-    /* $('.clickable-row').on('click', function () {
-      currentRow=$(this).closest('tr');
-      orderID = parseInt(currentRow.find("td:eq(1)").text());
-      status = $(buttonID).text();
-      console.log(orderID);
-      console.log(status);
-      console.log(formID);
-    }); */
   </script>  
 {% endblock %}

@@ -1,6 +1,5 @@
 {% extends "./base2.html" %}
 {% load static %}
-{% load humanize %}
 {% block title%} Danh sách các Sách {% endblock %}
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'js/admin/dataTables.bootstrap4.css' %}">
@@ -90,7 +89,9 @@
                               <th>Tên sách</th>
                               <th>Tác giả</th>
                               <th>Phân loại</th>
-                              <th>Năm xuất bản</th>
+                              <th>Nhà xuất bản</th>
+                              <th>Quốc gia</th>
+                              <th>Năm phát hành</th>
                               <th>Giá</th>
                               <th>Số lượng</th>
                             </tr>
@@ -102,8 +103,10 @@
                                   <td>{{ book.1 }}</td>
                                   <td>{{ book.2 }}</td>
                                   <td>{{ book.3 }}</td>
+                                  <td>{{ book.4 }}</td>
+                                  <td>{{ book.5 }}</td>
                                   <td>{{ book.6 }}</td>
-                                  <td>{{ book.7|intcomma }} đồng</td>
+                                  <td>{{ book.7 }}</td>
                                   <td>{{ book.8 }}</td>
                               </tr>
                             {% endfor %} 

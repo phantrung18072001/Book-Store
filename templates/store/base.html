@@ -23,6 +23,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="{% static 'js/navbar.js' %}"></script>
     <script src="{% static 'js/cart.js' %}"></script>
+    <script>
+        function format(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        $(".format").each(function(){
+            $(this).text(format($(this).text()));
+        });
+        
+    </script>
     {% block extra_js %}{% endblock %}
     {% include 'store/footer.html' %}
 </body>

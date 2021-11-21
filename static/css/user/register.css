@@ -192,7 +192,12 @@
     color: red;
     background-color: white;
     border: none;
-    margin: -20px 0px 0px 0px;
+    margin: -10px 0px 0px 10px;
     font-size: 12px;
     height: 30px;
   }
+
+.errorlist {
+  list-style: none;
+  max-width: 235px;
+}

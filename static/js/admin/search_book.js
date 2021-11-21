@@ -12,11 +12,15 @@ $(document).ready(function() {
             html += "<td>" + count + "</td>";
             html += "<td style='display: none;'>" + book[0] + "</td>";
             for (let i = 1; i < book.length-1; i++) {
-                html += "<td>" + book[i] + "</td>";
+                if (i == 5) {
+                    html += "<td>" + format(book[i]) + ' VNĐ' + "</td>";
+                } else {
+                    html += "<td>" + book[i] + "</td>";
+                }
             }
             html += "</tr>"
         }
-        $("#books tbody").html(html);
+        $(".table-book tbody").html(html);
         load();
     }
 

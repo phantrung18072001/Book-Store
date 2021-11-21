@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 from store.models import Book, Book_Image, Book_Inventory, Book_Price, Account, Order
 from store.views import order
+from django.utils import formats
 # Create your views here.
 
 def dashboard(request):
@@ -195,11 +196,11 @@ def orders_List(request):
             order_Info.append(orders_List[x][1])
             order_Info.append(orders_Books[x])
             order_Info.append("{:,} VNĐ".format(orders_List[x][3]).replace(',','.'))
-            order_Info.append(orders_List[x][5])
+            order_Info.append(formats.date_format(orders_List[x][5], "SHORT_DATETIME_FORMAT"))
             if orders_List[x][4] != "Hoàn thành":
                 order_Info.append("Chưa rõ")
             else:
-                order_Info.append(orders_List[x][6])
+                order_Info.append(formats.date_format(orders_List[x][6], "SHORT_DATETIME_FORMAT"))
             order_Info.append(orders_List[x][2])
             buttonContent = ["Chờ xử lý", "Đang vận chuyển", "Hoàn thành", "Đã hủy"]
             content = orders_List[x][4]

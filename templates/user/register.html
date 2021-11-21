@@ -37,59 +37,58 @@
                     <div class="col-sm-6">
                         <div class="input-group-item">
                             <input type="text" class="input-field" placeholder=" " name="name"
-                                value="" maxlength="50"
+                                value="" maxlength="50" required
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class="label-field">Họ và Tên</label>
                         </div>
-                        <div class="alert alert-danger"></div>
+                        <div class="alert alert-danger" style="list-style-type: none;"></div>
                         <div class="input-group-item">
                             <input type="phone" class="input-field" placeholder=" " name="username"
-                                value="" maxlength="24"
+                                value="" maxlength="24" required
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class=" label-field">Tên đăng nhập</label>
                         </div>
-                        <div class="alert alert-danger"></div>
+                        <div class="alert alert-danger" style="list-style-type: none;">{{register_form.errors.username}}</div>
                         <div class="input-group-item">
-                            <input type="password" class="input-field" placeholder=" " name="password1" maxlength="24"
+                            <input type="password" class="input-field" placeholder=" " name="password1" maxlength="24" required
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class="label-field">Mật khẩu</label>
                         </div>
-                        <div class="alert alert-danger"></div>
+                        <div class="alert alert-danger" style="list-style-type: none;">{{register_form.errors.password1}}</div>
                         <div class="input-group-item">
-                            <input type="password" class="input-field" placeholder=" " name="password2" maxlength="24"
+                            <input type="password" class="input-field" placeholder=" " name="password2" maxlength="24" required
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class="label-field">Nhập lại mật khẩu</label>
                         </div>
+                        <div class="alert alert-danger" style="list-style-type: none;">{{register_form.errors.password2}}</div>
                     </div>
                     <div class="col-sm-6">
                         <div class="input-group-item">
                             <input type="text" class="input-field" placeholder=" " name="phone" 
-                                value="" maxlength="11" data-type="phone"
+                                value="" maxlength="11" data-type="phone" required
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class=" label-field">Số điện thoại</label>
                         </div>
-                        <div class="alert alert-danger"></div>
+                        <div class="alert alert-danger" style="list-style-type: none;">{{register_form.errors.phone}}</div>
                         <div class="input-group-item">
                             <input type="email" class="input-field" placeholder=" " name="email"
-                                value="" maxlength="50" data-type="email"
+                                value="" maxlength="50" data-type="email" required
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class=" label-field">Email</label>
                         </div>
-                        <div class="alert alert-danger"></div>
+                        <div class="alert alert-danger" style="list-style-type: none;">{{register_form.errors.email}}</div>
                         <div class="input-group-item">
                             <input type="date" class="input-field" placeholder=" " style="height: 43px;" name="birth" min="1900-01-01"
                                 max="2009-12-31" value="">
                             <label class=" label-field">Ngày sinh</label>
                         </div>
-                        <div class="alert alert-danger"></div>
+                        <div class="alert alert-danger" style="list-style-type: none;"></div>
                         <div class="input-group-item">
                             <input type="text" class="input-field" placeholder=" " name="address"
                                 value="" maxlength="100"
                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <label class=" label-field">Địa chỉ</label>
-                        </div>
-                        <div class="alert alert-danger">
-                            
+                            <div class="alert alert-danger" style="list-style-type: none;"></div>
                         </div>
                     </div>
                 </div>

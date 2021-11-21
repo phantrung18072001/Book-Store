@@ -23,6 +23,15 @@
   <script src="{% static 'js/admin/off-canvas.js' %}"></script>
   <script src="{% static 'js/admin/hoverable-collapse.js' %}"></script>
   <script src="{% static 'js/admin/template.js' %}"></script>
+  <script>
+    function format(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    $(".format").each(function(){
+        $(this).text(format($(this).text()));
+    });
+    
+  </script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

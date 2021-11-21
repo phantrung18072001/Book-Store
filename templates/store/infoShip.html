@@ -43,7 +43,7 @@
                                 {% endfor %}
                             </ul>
                         </td>
-                        <td class="col-xl-2">{{order.total|intcomma}} đồng</td>
+                        <td class="col-xl-2 format">{{order.total}} đồng</td>
                         <td class="col-xl-2">
                             <input type="datetime" style="width: 100px; padding: 0 9px;" 
                                 name="" value='{{order.created_at|date:"d-m-Y"}}' disabled>

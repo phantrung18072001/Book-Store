@@ -156,7 +156,7 @@ def books_List(request):
 
 def books_Update(request):
     if request.user.is_admin:
-        books_List = list(Book.objects.filter(deleted_at = None).values_list('id', 'title', 'auth', 'category', 'publisher', 'country', 'year_publish'))
+        books_List = list(Book.objects.filter(deleted_at = None).values_list('id', 'title', 'auth', 'category', 'year_publish'))
         books_List_Inventory = list(Book_Inventory.objects.values_list('quantity', flat=True))
         books_List_Price = list(Book_Price.objects.values_list('price', flat=True))
         books = []

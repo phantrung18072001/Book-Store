@@ -30700,3 +30700,7 @@ div.tagsinput span.tag a {
   max-width: 100%;
   margin-left: 2.5rem;
 }
+
+.nav-link > i {
+  margin-right: 10px;
+}

@@ -59,11 +59,12 @@
 }
 
 .content .category-list {
+    padding: 3px;
     margin: 0px;
 }
 
 .content .book-wrapper {
-    padding: 10px;
+    padding: 6px;
     text-align: center;
   }
   
@@ -140,7 +141,7 @@
   
   .content .ddc-code {
     margin: 0;
-    font-size: 14px;
+    font-size: 13px;
   }
   
   .content .ddc-code span {

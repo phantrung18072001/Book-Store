@@ -1,4 +1,5 @@
 {% load humanize %}
+{% load static %}
 <div class="cart-interface">
     <div class="your-cart">
         <h2 class="cart-heading">Giỏ Hàng</h2>
@@ -95,7 +96,7 @@
             </div>
         </form>
         <div class="no-cart">
-            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f49e36beaf32db.png"
+            <img src="{% static 'img/empty.png' %}"
                 alt="" class="no-cart-img">
             <p class="no-cart-text">Chưa Có Sản Phẩm</p>
             <div class="cart-submit-wrapper-2">

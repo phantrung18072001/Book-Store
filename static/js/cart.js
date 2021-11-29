@@ -9,6 +9,12 @@ $(document).ready(function() {
         $('.cart-interface').show(500);
     })
 
+    function format(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    
+    console.log($(".format"));
+
     /* update cart */
     let arrNum = $('.cart-num')
     let listItemBig = $('.row-cart');
@@ -34,6 +40,10 @@ $(document).ready(function() {
                 success : function(response) {
                     console.log(response);
                     $('#total')[0].textContent = response.total_cart;
+                    console.log($(".format"));
+                    $(".format").each(function(){
+                        $(this).text(format($(this).text()));
+                    });
                 }
             })
         })
@@ -56,6 +66,9 @@ $(document).ready(function() {
                 success : function(response) {
                     console.log(response);
                     $('#total')[0].textContent = response.total_cart;
+                    $(".format").each(function(){
+                        $(this).text(format($(this).text()));
+                    });
                 }
             })
         })
@@ -89,6 +102,9 @@ $(document).ready(function() {
                 success : function(response) {
                     console.log(response);
                     $('#total')[0].textContent = response.total_cart;
+                    $(".format").each(function(){
+                        $(this).text(format($(this).text()));
+                    });
                 }
             })
         })
@@ -110,6 +126,9 @@ $(document).ready(function() {
                     success : function(response) {
                         console.log(response);
                         $('#total')[0].textContent = response.total_cart;
+                        $(".format").each(function(){
+                            $(this).text(format($(this).text()));
+                        });
                     }
                 })
                 $(this).parents('.row-cart').remove();

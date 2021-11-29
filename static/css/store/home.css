@@ -209,3 +209,32 @@
     opacity: 1;
     z-index: -1;
 }
+
+
+.home-product-item__favourite {
+  position: absolute;
+  top: 10px;
+  left: -4px;
+  color: #fff;
+  background-color: #f53e2d;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  padding-right: 4px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.home-product-item__favourite::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-top: 5px solid #811309d0;
+  border-left: 5px solid transparent;
+}
+
+.home-product-item__favourite i {
+    font-size: 10px;
+    margin: 0px 2px 4px 4px;
+}
